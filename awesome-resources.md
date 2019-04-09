@@ -1,10 +1,18 @@
-<center><font color=green size="5">awesome-algorithms-resources</font></center>
+# awesome-algorithms-resources[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 
----
+Table of Contents
+=================
 
-[TOC]
+* **[一、经验 学习资源](#一经验学习资源)**
 
----
+  * **[1、数据结构与算法学习经验(磨刀不误砍柴工！)](#1数据结构与算法学习经验磨刀不误砍柴工)**
+
+  * **[2、资源链接](#2资源链接)**
+* **[二、复杂度分析](#二复杂度分析)**
+* **[三、数据结构---单项资源](#三数据结构---单项资源)**
+
+  * **[1、链表](#1链表)**
+* **[四、算法---单项资源](#四算法---单项资源)**
 
 #### 一、经验+学习资源
 
