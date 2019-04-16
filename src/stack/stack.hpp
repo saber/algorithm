@@ -1,5 +1,5 @@
 /*
- * File: Stack.hpp
+ * File: stack.hpp
  * Project: algorithm
  * Author: gcj
  * Date: 2019/4/8
