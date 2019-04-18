@@ -8,8 +8,8 @@
  * github: https://github.com/saber/algorithm
  */
 
-#ifndef GLIB_QUEUE_H_
-#define GLIB_QUEUE_H_
+#ifndef GLIB_QUEUE_HPP_
+#define GLIB_QUEUE_HPP_
 #include <iostream>
 #include <string>
 

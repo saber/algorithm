@@ -7,8 +7,8 @@
  * License: see the LICENSE.txt file
  * github: https://github.com/saber/algorithm
  */
-#ifndef GLIB_STRING_COMMON_H_
-#define GLIB_STRING_COMMON_H_
+#ifndef GLIB_STRING_COMMON_HPP_
+#define GLIB_STRING_COMMON_HPP_
 #include <string>
 #include <vector>
 
@@ -16,7 +16,7 @@ namespace glib {
 
 //! \function 字符串的一些额外操作{字符串按照符号分割、将由纯数字构成的字符串容器转换成数值类型}
 //!           可用符号集：',' '.' ' ', '-' 等等各种符号
-//! \example 
+//! \example
     //string str("1,2,3_44-55");
     //string symbol = {',','_',' ', '-'};
     // vector<string> substrs = glib::StringCommon::Split(str, symbol);

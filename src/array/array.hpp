@@ -7,8 +7,8 @@
  * License: see the LICENSE.txt file
  * github: https://github.com/saber/algorithm
  */
-#ifndef GLIB_ARRAY_H_
-#define GLIB_ARRAY_H_
+#ifndef GLIB_ARRAY_HPP_
+#define GLIB_ARRAY_HPP_
 
 #include <iostream>
 #include <assert.h>

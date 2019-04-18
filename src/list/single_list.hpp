@@ -7,8 +7,8 @@
  * License: see the LICENSE.txt file
  * github: https://github.com/saber/algorithm
  */
-#ifndef GLIB_SINGLE_LIST_H_
-#define GLIB_SINGLE_LIST_H_
+#ifndef GLIB_SINGLE_LIST_HPP_
+#define GLIB_SINGLE_LIST_HPP_
 
 #include <iostream>
 #include <vector>

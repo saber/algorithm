@@ -8,8 +8,8 @@
  * github: https://github.com/saber/algorithm
  */
 
-#ifndef GLIB_STACK_H_
-#define GLIB_STACK_H_
+#ifndef GLIB_STACK_HPP_
+#define GLIB_STACK_HPP_
 #include <iostream>
 #include <cstring> // use memcpy()
 #include <string>
