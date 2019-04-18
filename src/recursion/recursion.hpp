@@ -8,8 +8,8 @@
  * github: https://github.com/saber/algorithm
  */
 
-#ifndef GLIB_RECURSION_H_
-#define GLIB_RECURSION_H_
+#ifndef GLIB_RECURSION_HPP_
+#define GLIB_RECURSION_HPP_
 //! TODO 实现 recursion.cc 中几个例子的封装形式！
 
 namespace glib {
