@@ -28,6 +28,7 @@ int main(int argc, char const *argv[]) {
     vector<int> vec_selection(n);
     vector<int> vec_merge(n);
     vector<int> vec_quick(n);
+    vector<int> vec_counting(n);
     for (size_t i = 0; i < n; i++) {
         size_t re = Random(n);
         vec_bubble[i] = re;
@@ -35,19 +36,21 @@ int main(int argc, char const *argv[]) {
         vec_selection[i] = re;
         vec_merge[i] = re;
         vec_quick[i] = re;
+        vec_counting[i] = re;
     }
+
 
     // 冒泡排序测试
     // std::vector<int> vec_bubble = {6, 5, 4, 3, 2, 1};
     auto start_bubble = chrono::system_clock::now();
-    glib::Sort(vec_bubble);
+    glib::Sort(vec_bubble, glib::SortOption::kBubble);
     auto end_bubble = chrono::system_clock::now();
     chrono::duration<double> elaspsed_seconds_bubble = end_bubble - start_bubble;
     cout << " bubble elaspsed_seconds: " << elaspsed_seconds_bubble.count() << endl;
-
     // for (auto &p: vec_bubble)
     //     cout << " " << p;
     cout << endl;
+
 
     // 插入排序测试
     // std::vector<int> vec_insert = {6, 6, 6, 6, 6, 5}; // 5,5,7,8,5
@@ -57,10 +60,10 @@ int main(int argc, char const *argv[]) {
     auto end_insert = chrono::system_clock::now();
     chrono::duration<double> elaspsed_seconds = end_insert - start_insert;
     cout << " insert elaspsed_seconds: " << elaspsed_seconds.count() << endl;
-
     // for (auto &p: vec_insert)
     //     cout << " " << p;
     cout << endl;
+
 
     // 选择排序测试
     // vector<int> vec_selection = {6, 5, 4, 3, 2, 1}; // 简单测试
@@ -73,6 +76,7 @@ int main(int argc, char const *argv[]) {
     // for (auto &p: vec_selection)
     //     cout << " " << p;
     cout << endl;
+
 
     // 归并排序测试
     // vector<int> vec_merge = {4, 4, 5, 2, 4};
@@ -88,34 +92,52 @@ int main(int argc, char const *argv[]) {
     //     cout << " " << p;
     cout << endl;
 
+
+    // 快速排序测试
     // vector<int> vec_quick = {6, 5, 4, 3, 3, 2, 1, 5};
     auto start_quick = chrono::system_clock::now();
     glib::Sort(vec_quick, glib::SortOption::kQuick);
     auto end_quick = chrono::system_clock::now();
     chrono::duration<double> elaspsed_seconds_quick = end_quick - start_quick;
     cout << " quick elaspsed_seconds: " << elaspsed_seconds_quick.count() << endl;
-    cout << endl;
     // for (auto &p: vec_quick)
     //     cout << " " << p;
     cout << endl;
 
-    // // 验证后面的的排序结果是否与冒泡排序一致！进而检验后面排序算法的实现是否正确
+
+    // 计数排序测试
+    // vector<int> vec_counting = {6, 5, 4, 3, 2, 1, 6, 2, 0, 3, -1, -1, -2, -2, -3, -3};
+    // vector<int> vec_counting = {1};
+    auto start_counting = chrono::system_clock::now();
+    glib::Sort(vec_counting, glib::SortOption::kCounting);
+    auto end_counting = chrono::system_clock::now();
+    chrono::duration<double> elaspsed_seconds_counting = end_counting - start_counting;
+    cout << " counting elaspsed_seconds: " << elaspsed_seconds_counting.count() << endl;
+    // for (auto &p: vec_counting)
+    //     cout << " " << p;
+    cout << endl;
+
+    // 验证后面的的排序结果是否与冒泡排序一致！进而检验后面排序算法的实现是否正确
     for (size_t i = 0; i < n; i++) {
         // cout << vec_bubble[i] << " ";
         if (vec_bubble[i] != vec_insert[i]) {
-            cout << "insert sort error" << endl;
+            cout << "insert sort error!" << endl;
             break;
         }
         if (vec_bubble[i] != vec_selection[i]) {
-            cout << "selection sort error" << endl;
+            cout << "selection sort error!" << endl;
             break;
         }
         if (vec_bubble[i] != vec_merge[i]) {
-            cout << "merge sort error" << endl;
+            cout << "merge sort error!" << endl;
             break;
         }
         if (vec_bubble[i] != vec_quick[i]) {
-            cout << "quick sort error" << endl;
+            cout << "quick sort error!" << endl;
+            break;
+        }
+        if (vec_bubble[i] != vec_counting[i]) {
+            cout << "counting sort error!" << endl;
             break;
         }
     }
@@ -124,7 +146,9 @@ int main(int argc, char const *argv[]) {
     vector<int> vev{1, 2, 3, 4, 5, 6, 6, 6};
     cout << "kth ---> value " << glib::FindKthBigElement(vev, 3) << endl;
 
-
+    // 验证，提示其他类型数据不能使用计数排序！
+    vector<char> vec_char_counting = {'c', 'a'};
+    glib::Sort(vec_char_counting, glib::SortOption::kCounting);
 
     return 0;
 }
