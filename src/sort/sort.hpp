@@ -14,12 +14,13 @@
 #include <vector>
 #include <assert.h>
 #include <iostream>
+#include <algorithm>
 
 namespace glib {
 using namespace std;
 
 //! \brief 简单实现冒泡排序、插入排序、选择排序、快速排序、归并排序、桶排序、基数排序
-//!
+//! \note 在最下边是外部调用的接口部分。剩下的类内部是相应功能的详细实现细节
 //! \TODO
 //!     1）桶排序、基数排序的基本实现，
 //!     2) 目前的实现版本是从小到大排序。没有进行大到小的转换
@@ -37,7 +38,8 @@ enum class SortOption {
     kInsertion,
     kSelection,
     kMerge,
-    kQuick
+    kQuick,
+    kCounting
 };
 
 // 打印当前数组元素顺序值
@@ -52,13 +54,14 @@ void SortDebug(const vector<_Scalar> &array) {
 class SortDetail {
 
 template <typename _Scalar>
-friend void Sort(vector<_Scalar> &array, const SortOption option = SortOption::kBubble);
+friend void Sort(vector<_Scalar> &array, const SortOption option = SortOption::kInsertion);
 
 //---------------------------冒泡排序-------------------------------------------------
 
+//! \complexity 最好：O(n) 最坏：O(n^2) 平均：O(n^2)
 template <typename _Scalar>
 void Bubble(vector<_Scalar> &array) {
-    cout << "Bubble Sort" << endl;
+    // cout << "Bubble Sort" << endl;
     assert(array.size() != 0);
     auto n = array.size();
     for (size_t i = 0; i < n; i++) {
@@ -84,9 +87,10 @@ void Bubble(vector<_Scalar> &array) {
 // 插入排序:移动操作总数等于逆序度。不管什么操作，移动次数是不变的
 // 可以分别注释下面的三种遍历方式 1)二分查找方式 2）前向遍历 3）后向遍历 看看不同的效果对应的时间
 // 经过测试 二分查找方式执行时间最短。是因为交换移动次数是固定的，只要比较的次数少一些。时间就会少！
+//! \complexity 最好：O(n) 最坏：O(n^2) 平均：O(n^2)
 template <typename _Scalar>
 void Insertion(vector<_Scalar> &array) {
-    cout << "Insertion Sort" << endl;
+    // cout << "Insertion Sort" << endl;
     assert(array.size() != 0);
     auto n = array.size();
     if (1 == n) return;
@@ -157,10 +161,11 @@ void Insertion(vector<_Scalar> &array) {
 
 // 选择排序（稳定版）：从剩下的未排序数组中找到最小值，然后放到已排序序列的后面。
 // 下面的实现方式，本质上与冒泡排序一致。是一个稳定的选择排序
+//! \complexity 最好：O(n^2) 最坏：O(n^2) 平均：O(n^2)
 template <typename _Scalar>
 void SelectionStable(vector<_Scalar> &array) {
     assert(array.size() != 0);
-    cout << "Selection Sort" << endl;
+    // cout << "Selection Sort" << endl;
 
     // 需要遍历 n 次，每次寻找一个最小值。可以从后向前遍历。一边遍历一边交换顺序，实际上是上面插入排序以及冒泡排序实现的思路。
     for (size_t i = 0; i < array.size(); ++i) {
@@ -179,10 +184,11 @@ void SelectionStable(vector<_Scalar> &array) {
 }
 
 // 不稳定的选择排序，其时间要比上面的稳定选择排序快。仅仅针对数值内置类型。
+//! \complexity 最好：O(n) 最坏：O(n^2) 平均：O(n^2)
 template <typename _Scalar>
 void SelectionUnstable(vector<_Scalar> &array) {
     assert(array.size() != 0);
-    cout << "Unstable Selection" << endl;
+    // cout << "Unstable Selection" << endl;
     for (size_t i = 0; i < array.size() - 1; ++i) {
         auto min_index = i;
         for (size_t j = i + 1; j < array.size(); ++j) {
@@ -256,7 +262,7 @@ vector<_Scalar> Merge(const vector<_Scalar> &ordered_array1,const vector<_Scalar
 
     for (; iter != merge_array.end(); ++iter) {
         if (iter1 != ordered_array1.end() && iter2 != ordered_array2.end()) {
-            if (*iter1 > *iter2) {
+            if (*iter1 > *iter2) { // 保证了稳定排序
                 *iter = *iter2;
                 ++iter2;
             }
@@ -277,7 +283,8 @@ vector<_Scalar> Merge(const vector<_Scalar> &ordered_array1,const vector<_Scalar
     return merge_array;
 }
 
-// 利用引用方式归并排序 O(nlog(n))
+// 利用引用方式归并排序
+//! \complexity 最好、最坏、平均都是 O(nlog(n))
 template <typename _Scalar>
 void MergeSort(vector<_Scalar> &array) {
     if (1 == array.size())
@@ -354,7 +361,8 @@ void MergeSort(vector<_Scalar> &array) {
 //         *start = *start_right;
 // }
 
-// 此时的分区函数速度最快，是上面分区函数的 10 倍。空间复杂度为 O(1)
+// 此时的分区函数速度最快，是上面分区函数的 10 倍。
+//! \complexity 空间复杂度为 O(1)
 template <typename _Scalar>
 void Partition(typename vector<_Scalar>::iterator begin,
                typename vector<_Scalar>::iterator end,
@@ -394,11 +402,85 @@ void QuickSortBase(typename vector<_Scalar>::iterator begin,
     QuickSortBase<_Scalar>(begin, temp_end);
     QuickSortBase<_Scalar>(temp_start, end);
 }
+
+//! \complexity 最好：O(nlog(n)) 最坏：O(n^2) 平均：O(nlog(n))
+//! 非稳定排序、原地排序：空间复杂度为 O(1)
 template <typename _Scalar>
 void QuickSort(vector<_Scalar> &array) {
-    cout << "Quick Sort" << endl;
+    // cout << "Quick Sort" << endl;
     QuickSortBase<_Scalar>(array.begin(), array.end());
 }
+
+
+//-----------------------------计数排序-----------------------------------------------
+
+// 除了特殊的 int 类型可以处理，其他类型暂时都不可处理!
+template <typename _Scalar>
+void CountingSort(vector<_Scalar> &array) {
+    cout << "该数据不适合计数排序，本实现仅仅用于「int」类型的数据排序。" << endl
+         << "请先转换到「int」后，在调用计数排序函数，或者选择其他排序！" << endl;
+    return;
+}
+
+//! \brief 计数排序
+//! \detail 将所有数据分桶
+//! \note 该计数排序仅仅适用于整数，且数据范围小于数据个数的情况！
+//! \complexity 时间复杂度：最好：O(n)，最坏：O(n) 平均：O(n) 空间复杂度：O(n)
+template <>
+void CountingSort(vector<int> &array) {
+    assert(array.size() > 0);
+
+    // 找到数组中上下限。判断当前数组能够用计数排序。不能用计数排序，需要调用其他排序方法。或者提示失败
+    int max_value = *std::max_element(array.begin(), array.end());
+    int min_value = *std::min_element(array.begin(), array.end());
+    size_t bucket_num = max_value - min_value + 1;
+    if (bucket_num > array.size()) {
+        std::cerr << "该组数据不适合用计数排序，请选择合适的排序方法" << '\n';
+        return;
+    } else if (1 == bucket_num)                   // 已经是有序的,内部只有一种元素
+        return;
+    vector<size_t> counting_array(bucket_num, 0); // 桶计数器
+    for (const auto &element: array)              // 计算每个索引对应多少个相同的数据
+        counting_array[element - min_value]++;
+
+    // 记录小于等于当前索引的数量,这里对于对应索引为的也会进行填充。因为后面不会用到索引为 0 的数据
+    size_t sum = 0;
+    for (auto &element: counting_array) {
+        sum += element;
+        element = sum;
+    }
+
+    // 计数排序核心: 根据计数器的值对数组 array 进行排序。从后向前遍历 array
+    vector<int> temp_array(array.size());
+    vector<int>::const_reverse_iterator iter = array.rbegin();
+    for (; iter != array.rend(); ++iter) {
+        auto array_index = counting_array[*iter - min_value] - 1;
+        counting_array[*iter - min_value]--;
+        temp_array[array_index] = *iter;
+    }
+
+    // 拷贝临时数组到要排序的 array 中
+    std::copy(temp_array.begin(), temp_array.end(), array.begin());
+}
+
+
+//-----------------------------基数排序-----------------------------------------------
+
+// TODO 待实现！目前没法对最后一个字符进行排序，然后影响到整个 string。需要前面的排序算法有通用实现
+// 仅仅适用于 string 中的每个字符的排序
+// template <>
+// void RadixSort(vector<string> &array) {
+//     // 在所有的 string 中，找到最大的长度。其他不足的补全为 "0"
+//     size_t max_length = array[0].size();
+//     for (const auto &p: array) {
+//         if (p.size() > max_length)
+//             max_length = p.size();
+//     }
+//
+//     // 对每个字符串的最低位进行排序
+//
+// }
+
 
 }; // class SortDetail
 
@@ -449,7 +531,7 @@ _Scalar QuickFind(typename vector<_Scalar>::iterator begin,
         return *temp_end;
     else if (pivot > kth - 1) // 在左边找
         return QuickFind<_Scalar>(begin, temp_end, kth);
-    else {
+    else { // 在右边找
         kth = kth - 1 - pivot;
         return QuickFind<_Scalar>(temp_start, end, kth);
     }
@@ -465,23 +547,28 @@ _Scalar QuickFind(typename vector<_Scalar>::iterator begin,
 
 
 //! \brief 各种排序算法接口
-//! \note 调用是需要给定一个 vector 实例。不能是简单临时构造
+//! \note 调用是需要给定一个 vector 实例。不能是简单临时构造。
+//! 对于计数排序，保证输入的是整数。如果是小数，那么需要自己转换成整数。如果是字符，可以自己转换成整数。
 //! \param array 输入的数据元素，只支持 vector 容器
-//! \complexity 冒泡：O(n^2)       插入: O(n^2)      选择：O(n^2)
-//!             归并：O(nlog(n))   快排：O(nlog(n))
+//! \complexity 下面是平均复杂度
+//!             冒泡：O(n^2)       插入: O(n^2)      选择：O(n^2)
+//!             归并：O(nlog(n))   快排：O(nlog(n))  计数：O(n)
 template <typename _Scalar>
-void Sort(vector<_Scalar> &array, const SortOption option = SortOption::kBubble) {
+void Sort(vector<_Scalar> &array, const SortOption option = SortOption::kInsertion) {
     SortDetail sort;
     switch (option) {
         case SortOption::kBubble: {
+            cout << "Bubble Sort" << endl;
             sort.Bubble(array);
             break;
         }
         case SortOption::kInsertion: {
+            cout << "Insertion Sort" << endl;
             sort.Insertion(array);
             break;
         }
         case SortOption::kSelection: {
+            cout << "Selection Sort" << endl;
             // SelectionStable(array); // 稳定版本选择排序
             sort.SelectionUnstable(array); // 不稳定排序算法，对于排序和交换的原始是内置数值类型，
                                               // 此时不稳定的排序要快于稳定的排序。
@@ -493,7 +580,13 @@ void Sort(vector<_Scalar> &array, const SortOption option = SortOption::kBubble)
             break;
         }
         case SortOption::kQuick: {
+            cout << "Quick Sort" << endl;
             sort.QuickSort(array);
+            break;
+        }
+        case SortOption::kCounting: { // 仅仅适用于 int 类型
+            cout << "Counting Sort" << endl;
+            sort.CountingSort(array);
             break;
         }
     }
@@ -504,7 +597,7 @@ void Sort(vector<_Scalar> &array, const SortOption option = SortOption::kBubble)
 //!       那么需要自己实现把重复的元素剔除掉，然后在调用该函数即可找到第 k 大元素
 //! \param array 输入的无序 vector
 //! \return 第 k 大元素对应的值
-//! \complexity O(n)
+//! \complexity 时间复杂度 O(n) 空间复杂度 O(1)
 template <typename _Scalar>
 _Scalar FindKthBigElement(vector<_Scalar> array, int kth) {
     AppDetail findkth;
@@ -512,4 +605,5 @@ _Scalar FindKthBigElement(vector<_Scalar> array, int kth) {
 }
 
 } // namespace glib
+
 #endif
