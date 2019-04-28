@@ -252,7 +252,8 @@ void SelectionUnstable(vector<_Scalar> &array) {
 // }
 
 // 比较两个有序数组的最低位元素。哪个小就复制哪个元素到 merge_array 中。然后移动到下一个元素在与其比较。
-//! \note 这种合并的方式要比上面的合并方式快 10 倍。 O(n)
+//! \note 这种合并的方式要比上面的合并方式快 10 倍。 O(n)。一般实际存储的是指针或者引用，所以下面的
+//!      实现还不理想，存储的是值。
 template <typename _Scalar>
 vector<_Scalar> Merge(const vector<_Scalar> &ordered_array1,const vector<_Scalar> &ordered_array2) {
     vector<_Scalar> merge_array(ordered_array1.size() + ordered_array2.size());
