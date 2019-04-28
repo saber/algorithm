@@ -46,6 +46,8 @@ Table of Contents
 >   > [浙大数据结构](https://mooc.study.163.com/course/1000033001?_trace_c_p_k2_=8cea2b8fb208415bbfde896a4361caf7#/info)
 >   >
 >   > [清华大学数据结构](http://www.xuetangx.com/courses/course-v1:TsinghuaX+30240184X+sp/about)
+>   >
+>   > [普林斯顿-算法第四版](https://www.coursera.org/lecture/algorithms-part1/analysis-of-algorithms-introduction-xaxyP)
 >
 > - 刷题网站
 >

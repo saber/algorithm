@@ -1,9 +1,11 @@
 # Directory Structure Description
 **`src` **sources code that I implement as learning  data struct and algorithm.
 
-**`awesome-resources.md`** some useful resources
+**`notes` **some notes, the content of the notes is typeset according to [中文文案排版指北](https://github.com/sparanoid/chinese-copywriting-guidelines).
 
-**`code_practice` **some online test code  provide by  some companies for a job.
+**`awesome-resources.md`** some useful resources, updating ...
+
+**`code_practice` **some online test code  provide by  some companies for a job. updating ...
 
 This is details directory structure:
 
