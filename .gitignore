@@ -1,4 +1,3 @@
-
 src/**/*.out
 src/**/*.gch
 src/sort/sort2.hpp
@@ -9,6 +8,7 @@ practice/**/*.gch
 practice/**/*.out
 practice/others
 
+code-style/*.gch
 others/
 books/
 TODO.md
