@@ -1,4 +1,5 @@
 /*
+ * CopyRight (c) 2019 gcj
  * File: sort.hpp
  * Project: algorithm
  * Author: gcj
@@ -19,18 +20,41 @@
 namespace glib {
 using namespace std;
 
-//! \brief 简单实现冒泡排序、插入排序、选择排序、快速排序、归并排序、桶排序、基数排序
-//! \note 在最下边是外部调用的接口部分。剩下的类内部是相应功能的详细实现细节
+//! \brief 简单实现一些排序算法：冒泡排序、插入排序、选择排序、快速排序、归并排序、计数排序
+//!        以及一个应用实例，在 O(n) 复杂度下，在数组中找到第 k 大元素。
+//!      核心函数：
+//!         1）第一类排序算法（O(n^2)）：冒泡排序、插入排序、选择排序（稳定版本、不稳定版本）
+//!             对应函数：Bubble、Insertion、SelectionStable、SelectionUnstable
+//!         2）第二类排序算法（O(nlog(n))）：快速排序、归并排序
+//!             对应函数：QuickSort、MergeSort
+//!         3）第三类排序算法（O(n)）：计数排序
+//!             对应函数：CountingSort
+//!         4）利用快排思路，在数组中找到第 k 大元素
+//!             对应函数： QuickFind
+//!
+//!      外部调用接口：
+//!         1）排序函数：Sort。通过设置排序算法选项选择不同的排序算法
+//!         2）在数组中查找第 k 大元素：FindKthBigElement
+//!
+//! \Note
+//!      1）最底部是外部调用的接口，类内部是相应功能的详细实现细节
+//!      2）目前的实现版本是从小到大排序。没有进行大到小的转换
+//!      3）该排序算法输入仅仅支持 vector，若是要排序其他类型，需要进行转换为 vector 元素
+//!      4）对于计数排序，目前实现版本，仅仅支持整数 vector，对于其他可以转换为整数类型的数据，
+//!         需要自己转换为整数后在调用计数排序。并且需要知道计数排序适合什么类型的问题。参考「排序」笔记
+//!
 //! \TODO
 //!     1）桶排序、基数排序的基本实现，
-//!     2) 目前的实现版本是从小到大排序。没有进行大到小的转换
+//!     2) 将下面排序实现版本改进，使其适用从大到小的排序
 //!     3）转换为 stl 接口形式。可以接受一个外部的谓语。比较 Key 值来排序类元素！
 //!
-//! \conclusion 在数值排序时，推荐使用插入排序(二分形式)。其次是不稳定的选择排序。
-//!  冒泡排序、插入排序、选择排序。在排序交换数值类型时。经过测试 10000 个数据，得到的结果显示，效率如下：
-//!            插入排序 > 选择排序 > 冒泡排序。倍数关系依次为 5 倍、2 倍
-//!            在插入排序中，自己的实现方式：二分查找 > 后向比较 > 前向比较。依次相差 50ms、20ms
-//!            在选择排序中，自己实现方式：不稳定选择排序 > 稳定选择排序(类似冒泡)。约为 2 倍的关系
+//! \conclusion
+//!     1）在数值排序时，推荐使用插入排序(二分形式)。其次是不稳定的选择排序。
+//!     2）冒泡排序、插入排序、选择排序。在排序交换数值类型时。经过测试 10000 个数据，
+//!        得到的运行时间结果显示，效率如下：
+//!          插入排序 > 选择排序 > 冒泡排序。倍数关系依次为 5 倍、2 倍
+//!          在插入排序中，自己的实现方式：二分查找 > 后向比较 > 前向比较。依次相差 50ms、20ms
+//!          在选择排序中，自己实现方式：不稳定选择排序 > 稳定选择排序(类似冒泡)。约为 2 倍的关系
 
 // 选择某个排序方法
 enum class SortOption {
@@ -70,9 +94,8 @@ void Bubble(vector<_Scalar> &array) {
             if (array[j] > array[j+1]) {
                 // 满足交换顺序，可以直接交换
                 _Scalar temp = array[j];
-                array[j] = array[j+1];
-                array[j+1] = temp;
-
+                array[j]     = array[j+1];
+                array[j+1]   = temp;
                 success_sort = true;
             }
         }
@@ -120,7 +143,7 @@ void Insertion(vector<_Scalar> &array) {
             if (array[middle] <= separate_point_value) { // 保证稳定排序
                 low_limit = middle + 1;
             } else {
-                up_limit = middle - 1;
+                up_limit  = middle - 1;
             }
             middle = low_limit + (up_limit - low_limit)/2;
             // middle = (low_limit + up_limit)/2;
@@ -174,9 +197,9 @@ void SelectionStable(vector<_Scalar> &array) {
         for (; j > i; --j) { // 在剩下的未排序数组中找到最小值
             if (array[j] < array[j-1]) {
                 auto temp_value = array[j-1];
-                array[j-1] = array[j];
-                array[j] = temp_value;
-                success_sort = true;
+                array[j-1]      = array[j];
+                array[j]        = temp_value;
+                success_sort    = true;
             }
         }
         if (!success_sort) return;
@@ -197,9 +220,9 @@ void SelectionUnstable(vector<_Scalar> &array) {
         }
         // 交换元素
         if (min_index != i) {
-            auto temp_value = array[min_index];
+            auto temp_value  = array[min_index];
             array[min_index] = array[i];
-            array[i] = temp_value;
+            array[i]         = temp_value;
         }
     }
 }
@@ -374,19 +397,19 @@ void Partition(typename vector<_Scalar>::iterator begin,
     temp_end = begin;
     for (; temp_end != end; ++temp_end) {
         if (*temp_end < *pivot) {
-            auto temp = *temp_start;
+            auto temp   = *temp_start;
             *temp_start = *temp_end;
-            *temp_end = temp;
+            *temp_end   = temp;
             ++temp_start;
         }
     }
     // 交换最后一个 pivot 值
-    auto temp = *pivot;
-    *pivot = *temp_start;
+    auto temp   = *pivot;
+    *pivot      = *temp_start;
     *temp_start = temp;
 
     // 把下一次分区的起始和结尾更新
-    temp_end = temp_start;
+    temp_end   = temp_start;
     temp_start = temp_end + 1;
 }
 
@@ -503,20 +526,20 @@ void FindPartition(typename vector<_Scalar>::iterator begin,
     temp_end = begin;
     for (; temp_end != end; ++temp_end) {
        if (*temp_end > *pivot) {
-           auto temp = *temp_start;
+           auto temp   = *temp_start;
            *temp_start = *temp_end;
-           *temp_end = temp;
+           *temp_end   = temp;
            ++temp_start;
        }
     }
     // 交换最后一个 pivot 值
-    auto temp = *pivot;
-    *pivot = *temp_start;
+    auto temp   = *pivot;
+    *pivot      = *temp_start;
     *temp_start = temp;
 
     // 把下一次分区的起始和结尾更新
-    temp_end = temp_start; // 就是 pivot 点
-    temp_start = temp_end + 1;
+    temp_end    = temp_start; // 就是 pivot 点
+    temp_start  = temp_end + 1;
 }
 
 // 第 k 大元素，核心函数
@@ -607,4 +630,4 @@ _Scalar FindKthBigElement(vector<_Scalar> array, int kth) {
 
 } // namespace glib
 
-#endif
+#endif // GLIB_SORT_HPP_

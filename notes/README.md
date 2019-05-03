@@ -1,11 +1,48 @@
-学习整理极客时间付费专栏《数据结构与算法之美》。[外部链接](https://time.geekbang.org/column/intro/126)。
+### :pencil2: 内容说明
 
-Note：GitHub 目前无法查看 MarkDown 文件中的 LaTex 数学公式，导致笔记在线观看效果不好。解决方案：
+---
 
-- 拷贝当前 Repo ，用 Typora 软件或者其他相关的 MarkDown 软件进行查看
+本文件夹包含了一些笔记——学习整理极客时间付费专栏《数据结构与算法之美》。点击这里 [外部链接](https://time.geekbang.org/column/intro/126)。
+
+对于笔记中理论部分的实现代码，可以进入上一个目录下的  `src` 文件夹进行查看。
+
+
+
+### :memo: 注意事项
+
+---
+
+GitHub 目前无法查看 MarkDown 文件中的 LaTex 数学公式，导致笔记在线观看效果不好。
+
+推荐解决方案：
+
+- 克隆当前 Repo ，用 Typora 软件或者其他相关的 Markdown 软件进行离线查看。
+
+  Note：在用 Typora 离线观看时，在每个笔记前面，可以自己加上 `[TOC]` ，展示更好的目录跳转。 
+
 - 安装 Google 插件 [Github With Mathjax](https://chrome.google.com/webstore/detail/github-with-mathjax/ioemnmodlmafdkllaclgeombjnmnbima) ，实现在线查看。如果安装失败可以 [参考](https://github.com/orsharir/github-mathjax/issues/24)。
 
 根本上解决方案（嫌麻烦）：
 
 - 在线编辑并且生成一张图片链接，然后插入到 `.md` 文件中进行引用。
 - 使用公式编辑器，生成一张图片，在文件中引用。
+
+
+
+### :page_with_curl: 笔记目录
+
+---
+
+#### 1）数据结构相关
+
+- [数组&链表](数组&链表.md)
+- [栈](栈.md)
+- [队列](队列.md)
+
+
+
+#### 2）算法思想相关
+
+- [复杂度分析](复杂度分析.md)
+- [递归](递归.md)
+- [排序](排序.md)

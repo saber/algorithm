@@ -1,4 +1,5 @@
 /*
+ * CopyRight (c) 2019 gcj
  * File: use_stack.cc
  * Project: algorithm
  * Author: gcj
@@ -7,45 +8,51 @@
  * License: see the LICENSE.txt file
  * github: https://github.com/saber/algorithm
  */
+
 #include "./stack.hpp"
 #include <iostream>
 #include <string>
 
 using namespace std;
-//! \brief 可以取消相应部分注释，然后编译运行查看测试结果！
 
+//! \brief 简单测试栈的基本功能
 int main(int argc, char const *argv[]) {
-// 测试堆栈！
-    // glib::Stack<string> stac(5);
-    // cout << "测试输入" << endl;
-    // for (size_t i = 0; i < 10; i++) {
-    //     stac.Push("abc");
-    // }
-    // for (size_t i = 0; i < 20; i++) {
-    //     cout << stac.Pop().second << " ";
-    // }
-    // cout << "sizeof(string): " << sizeof(string);
-// 测试 glib::EliminateAdjacent()
-    // string ss("10");
-    // cout << glib::EliminateAdjacent(ss) << "e"; // 0
+    // 测试堆栈！
+    cout << "测试压栈，出栈" << endl;
+    glib::Stack<string> stac(5);
+    for (size_t i = 0; i < 10; i++) {
+        stac.Push("abc");
+    }
+    for (size_t i = 0; i < 20; i++) {
+        cout << stac.Pop().second << " ";
+    } // 10 个 abc
+    cout << "sizeof(string): " << sizeof(string) << endl;
 
-// 测试 Element 元素 使用 EliminateAdjacent()
-    // vector<glib::Element<char>> str;
-    // for (size_t i = 0; i < 20; i++) {
-    //     str.push_back(glib::Element<char>('1'));
-    //     str.push_back(glib::Element<char>('1'));
-    // }
-    // for (size_t i = 0; i < 2; i++) {
-    //     str.push_back(glib::Element<char>('0'));
-    // }
-    // cout << glib::EliminateAdjacent(str);
+    // 测试 glib::EliminateAdjacent()
+    cout << "测试消消乐" << endl;
+    string ss("10");
+    cout << glib::EliminateAdjacent(ss) << endl; // 0
 
-// 测试 vector<char> 使用 glib::EliminateAdjacent()
-    // vector<char> str1=  {'1','1','1','1','1','1','1','1','1','1'};
-    // cout << glib::EliminateAdjacent({'1','1','1','1','1','1','1','1','1','1'});
+    // 测试 Element 元素 使用 EliminateAdjacent()
+    cout << "测试消消乐通用框架" << endl;
+    vector<glib::Element<char>> str;
+    for (size_t i = 0; i < 20; i++) {
+        str.push_back(glib::Element<char>('1'));
+        str.push_back(glib::Element<char>('1'));
+    }
+    for (size_t i = 0; i < 2; i++) {
+        str.push_back(glib::Element<char>('0'));
+    }
+    cout << glib::EliminateAdjacent(str) << endl;
 
-// 测试运算符表达式 34+13*9+44-12/3。
-// 运行时输入上面表达式
+    // 测试 vector<char> 使用 glib::EliminateAdjacent()
+    cout << "测试 vector<char> 直接进行消消乐 " << endl;
+    vector<char> str1=  {'1','1','1','1','1','1','1','1','1','1'};
+    cout << glib::EliminateAdjacent({'1','1','1','1','1','1','1','1','1','1'}) << endl;
+
+    // 测试运算符表达式 34+13*9+44-12/3。结果为 191
+    // 运行时输入上面表达式
+    cout << "测试运算符表达式" << endl;
     string input;
     cin >> input;
     // std::map<string, size_t> priority_table;
@@ -56,7 +63,7 @@ int main(int argc, char const *argv[]) {
     //or // 优先级表，对应数字越大表示优先级越高！
     std::map<string, size_t> priority_table = { {"+", 0}, {"-", 0},
                                                 {"*", 1}, {"/", 1} };
-    cout << glib::StackForExpression(input, {'+','-','*','/'}, priority_table);
+    cout << glib::StackForExpression(input, {'+','-','*','/'}, priority_table) << endl;
 
     return 0;
 }

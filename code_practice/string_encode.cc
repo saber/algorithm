@@ -1,4 +1,5 @@
 /*
+ * CopyRight (c) 2019 gcj
  * File: string_encode.cc
  * Project: algorithm
  * Author: gcj

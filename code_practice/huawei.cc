@@ -1,4 +1,5 @@
 /*
+ * CopyRight (c) 2019 gcj
  * File: huawei.cc
  * Project: algorithm
  * Author: gcj
