@@ -8,9 +8,7 @@
 
 
 
-#### 目录
-
----
+## 目录
 
 * [一、经验（磨刀不误砍柴工）](#一经验磨刀不误砍柴工)
 * [二、资源](#二资源)
@@ -31,9 +29,7 @@
 
 
 
-#### 一、经验（磨刀不误砍柴工）
-
----
+## 一、经验（磨刀不误砍柴工）
 
 - [我的算法学习之路](http://www.cnblogs.com/figure9/archive/2014/05/05/3708351.html)
 - [左程云：程序员该如何学习算法？](https://www.nowcoder.com/discuss/61529)
@@ -44,26 +40,22 @@
     https://www.zhihu.com/question/21318658/answer/42690576)
   - [如何学习数据结构？ - 小鱼二的回答 - 知乎](
     https://www.zhihu.com/question/21318658/answer/26295370)
-
 - [本人偏向于学习C++，如何全面的学习《算法》（第四版）这本用java写的书？](https://www.zhihu.com/question/30170425)
-
 - [程序员如何提升算法思维？](https://zhuanlan.zhihu.com/p/54929463)
 - [LeetCode 100 题](https://leetcode.com/problemset/top-100-liked-questions/) — 适合准备校招
 
 
 
-#### 二、资源
 
----
 
-##### 1）网站
+## 二、资源
+
+### 1）网站
 
 下面是一些学习数据结构的在线网站
 
 - [数据结构与算法之美](https://time.geekbang.org/column/article/39922) — 极客时间专栏，更多好专栏可以点击 [极客时间](https://time.geekbang.org/)
-
 - [可视化学习数据结构与算法](https://visualgo.net/en) — 包含了各种算法的可视化操作
-
 - [GeeksforGeeks](https://www.geeksforgeeks.org/) — 英文版一些算法的实现
 - [VisuAlgo](https://visualgo.net/en) — 一个动图显示各种算法原理的网站
 
@@ -71,7 +63,7 @@
 
 
 
-##### 2）在线视频课程
+### 2）在线视频课程
 
 - [浙大数据结构](https://mooc.study.163.com/course/1000033001?_trace_c_p_k2_=8cea2b8fb208415bbfde896a4361caf7#/info)
 
@@ -83,7 +75,7 @@
 
 
 
-##### 3）书
+### 3）书
 
 - 入门
   - 《算法图解》 — 主打图解，通俗易懂
@@ -100,7 +92,7 @@
 
 
 
-##### 4）博客
+### 4）博客
 
 - [数据结构与算法系列](http://www.cnblogs.com/skywang12345/p/3603935.html) — 包含了基本数据结构与排序算法 c/c++/Java 实现版本
 
@@ -110,7 +102,7 @@
 
 
 
-##### 5）Github 项目
+### 5）Github 项目
 
 包含 c/c++ 的一些实现。学习过程中可以参考他人的代码。
 
@@ -122,7 +114,7 @@
 
 
 
-##### 6）在线评测网站
+### 6）在线评测网站
 
 - [LeetCode](https://leetcode.com/)
 
@@ -132,43 +124,36 @@
 
 
 
-#### 三、复杂度分析
-
----
+## 三、复杂度分析
 
 - [十分钟搞定时间复杂度（算法的时间复杂度)](https://www.jianshu.com/p/f4cca5ce055a)
 
 
 
-#### 四、数据结构
+## 四、数据结构
 
----
-
-##### 1）链表
+### 1）链表
 
 - [搞懂单链表常见面试题](https://juejin.im/post/5aa299c1518825557b4c5806) — 非常全的关于考察单链表的知识，会了这些，可以适用于所有关于链表（单链表、双链表、循环链表）的题目。
 - [看图理解单链表翻转](https://blog.csdn.net/feliciafay/article/details/6841115)
-- 
 
 
 
-##### 2）栈
+### 2）栈
 
 
 
-##### 3）队列
+### 3）队列
 
 
 
-#### 五、算法
+## 五、算法
 
----
-
-##### 1）递归
+### 1）递归
 
 
 
-##### 2）排序
+### 2）排序
 
 - [知无涯之std::sort源码剖析](http://feihu.me/blog/2014/sgi-std-sort/)
 - [动态图解十大经典排序算法](https://mp.weixin.qq.com/s/HQg3BzzQfJXcWyltsgOfCQ) — java 实现，可以重点看下原理

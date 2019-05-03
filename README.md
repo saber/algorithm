@@ -8,13 +8,17 @@
 
 
 
+
+
 ## :file_folder: src
 
-专栏中讲过的数据结构与算法的 C++ 实现。内部包含了详细的代码注释、复杂度分析以及基本实现思路等等。下面图片是其中一个单链表 `.hpp` 注释例子。
+专栏中讲过的数据结构与算法的 C++ 实现。内部包含了详细的代码注释、复杂度分析以及基本实现思路等等。比如下面就是其中单链表 `.hpp` 注释例子。
 
-**戳这里** :point_right: :point_right: [代码](src/) ，查看所有代码。代码持续更新中 ......
+查看所有代码，**戳这里**​ :point_right: :point_right: [代码](/src)。代码持续更新中 ......
 
-<img src = "./pics/注释格式.png" width = "400px">
+<img src = "./pics/注释格式.png" height = "800" width = "800px">
+
+
 
 
 
@@ -26,6 +30,8 @@
 
 
 
+
+
 ## :pencil2: awesome-resources.md
 
 学习过程中收集的关于数据结构与算法的资源，以及大佬经验。
@@ -34,9 +40,13 @@
 
 
 
-## :file_folder: code_practice
+
+
+## :file_folder: practice
 
 一些互联网公司在线测试题目。持续更新中 ......
+
+
 
 
 
@@ -45,24 +55,38 @@
 ### Repo 总览
 
 ```
+.
 ├── awesome-resources.md
-├── code_practice
+├── practice
 │   ├── huawei.cc
 │   └── string_encode.cc
 ├── LICENSE.txt
+├── notes
+│   ├── pics
+│   ├── README.md
+│   ├── 递归.md
+│   ├── 队列.md
+│   ├── 复杂度分析.md
+│   ├── 排序.md
+│   ├── 数组&链表.md
+│   └── 栈.md
+├── pics
+│   ├── logo2.png
+│   ├── qq.png
+│   └── 注释格式.png
 ├── README.md
 └── src
     ├── array
-    │   ├── array.hpp
-    │   └── use_array.cc
     ├── list
-    │   ├── single_list.hpp
-    │   └── use_single_list.cc
+    ├── queue
+    ├── README.md
+    ├── recursion
+    ├── sort
     ├── stack
-    │   ├── stack.hpp
-    │   └── use_stack.cc
+    ├── stl_examples
     └── utils
-        └── string_common.hpp
+
+13 directories, 16 files
 ```
 
 ### QQ 群
@@ -72,6 +96,8 @@
 **Note**：为了保证群内不出现微商等闲杂人员，申请加群时，要备注成 saber/algorithm 等字眼，方便筛选。
 
 <img src="pics/qq.png" width="200px">
+
+
 
 
 
