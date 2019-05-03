@@ -5,9 +5,9 @@ src/sort/sort2.hpp
 src/sort/sort1.hpp
 
 #忽略由于 atom 产生的 .gch文件
-code_practice/**/*.gch
-code_practice/**/*.out
-code_practice/others
+practice/**/*.gch
+practice/**/*.out
+practice/others
 
 others/
 books/
