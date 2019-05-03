@@ -1,4 +1,5 @@
 /*
+ * CopyRight (c) 2019 gcj
  * File: queue.cc
  * Project: algorithm
  * Author: gcj
@@ -8,6 +9,10 @@
  * github: https://github.com/saber/algorithm
  * reference 网上
  */
+
+//! \brief 一个网上下载的测试队列函数，把自己实现的队列对应替换为标准库中的队列。经过测试能够满足
+//!         网上提供的代码
+//! \Note 该测试文件已经被 use_queue.cc 测试文件替换
 
 #include "./queue.hpp"
 #include <iostream>

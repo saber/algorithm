@@ -1,4 +1,5 @@
 /*
+ * CopyRight (c) 2019 gcj
  * File: use_array.cc
  * Project: algorithm
  * Author: gcj
@@ -7,11 +8,15 @@
  * License: see the LICENSE.txt file
  * github: https://github.com/saber/algorithm
  */
+
 #include "array.hpp"
 #include <iostream>
 #include <string>
 using namespace std;
+
+//! \brief 数组类型的基本测试
 int main(int argc, char const *argv[]) {
+    // 基本类型测试
     glib::Array<int> array;
     for (size_t i = 0; i < array.size(); i++) {
         // array.PushBack(i);
@@ -25,12 +30,39 @@ int main(int argc, char const *argv[]) {
     cout << "数组容量: " << array.capacity() << endl;
     for (size_t i = 0; i < array.size(); i++) {
         cout << "array[i]: " << array[i] << endl;
-    }
+    } // 输出 0 5 6 7
 
-    // TODO string 测试
-    // glib::Array<string> array_string;
-    // for (size_t i = 0; i < ; i++) {
-    //     /* code */
-    // }
+    // string 测试
+    cout << "string" << endl;
+    glib::Array<string> array_string(5);
+    for (size_t i = 0; i < array_string.size(); i++) {
+        array_string[i] = "st";
+    }
+    array_string.PushBack("st2");
+    cout << endl << "print" << endl;
+    for (size_t i = 0; i < array_string.size(); i++) {
+        cout << array_string[i] << " ";
+    } // 输出 st st st st st st2
+
+
+    // 测试合并两个有序数组
+    cout << endl << "测试合并两个有序数组" << endl;
+    glib::Array<int> array1(7);
+    glib::Array<int> array2(9);
+    for (size_t i = 0; i < 7; i++) {
+        array1[i] = 7 - i;
+    } // 7 6 5 4 3 2 1
+    for (size_t i = 0; i < 9; i++) {
+        array2[i] = 9 - i;
+    }// 9 8 7 6 5 4 3 2 1
+    // 先排序
+    array1.Sort();
+    array2.Sort();
+
+    auto array_merge = glib::Merge(array1, array2);
+    for (size_t i = 0; i < array_merge.size(); i++) {
+        cout << array_merge[i] << " ";
+    } // 1 1 2 2 3 3 4 4 5 5 6 6 7 7 8 9
+
     return 0;
 }

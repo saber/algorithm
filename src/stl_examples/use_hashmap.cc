@@ -1,4 +1,5 @@
 /*
+ * CopyRight (c) 2019 gcj
  * File: use_hashmap.cc
  * Project: algorithm
  * Author: gcj
@@ -14,6 +15,8 @@
 #include <string>
 #include <map>
 using namespace std;
+
+//! \brief 简单学习使用 std::unordered_map 
 
 // 使用方法参考：C++ 中标准库 map 和 hash_map 的使用方法--->https://blog.csdn.net/qq_26399665/article/details/52295380
 // C++ STL中哈希表 hash_map介绍--->https://blog.csdn.net/ddkxddkx/article/details/6555754#t4

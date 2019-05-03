@@ -1,4 +1,5 @@
 /*
+ * CopyRight (c) 2019 gcj
  * File: stack.hpp
  * Project: algorithm
  * Author: gcj
@@ -14,15 +15,30 @@
 #include <cstring> // use memcpy()
 #include <string>
 #include <vector>
-#include <map> // 保存符号对应的优先级
+#include <map>     // 括号匹配时，保存符号对应的优先级
 
-//! \brief 本栈的实现是基于动态数组，对于内置类型都可以通过测试，对于 string 、vector 标准库类也能通过。
-//!        在 Stack 后面是一些应用实例。
-//! TODO leetCode example implementation
-//! \leetCode: 20,155,232,844,224,682,496
+//! \brief 简单实现一个支持动态扩容的栈，本栈实现是基于动态数组。
+//!        基本功能:
+//!           1）压栈、出栈
+//!                 对应函数：Push、Pop
+//!           2）显示栈的状态函数：栈是否为空、栈顶索引、栈内有效值
+//!                 对应函数：empty、top_of_stack、print_value
+//!        应用实例：
+//!           1）栈在表达式求值中的应用：StackForExpression
+//!           2）栈在消消乐中的应用及其框架：EliminateAdjacent
+//!
+//! \Note
+//!      1）不支持移动赋值、移动构造
+//!      2）栈顶元素永远为空
+//!
+//! TODO
+//!     1）支持移动赋值、移动构造
+//!     2）leetCode: 20, 155, 232, 844, 224, 682, 496
+//!     3）编程模拟一个浏览器的前进、后退功能——类似上面栈在表达式求值中的应用
+//!     4）用链表实现一个链式栈
+
 namespace glib {
 using namespace std;
-
 
 template <typename T>
 class Stack {
@@ -32,6 +48,7 @@ public:
         if (nullptr == stack_)
             exit(-1);
     }
+
     Stack(size_t size) : stack_size_(size), top_of_stack_(0) {
         if (!size)
             stack_ = new T[10](); // 默认申请 10 个空间
@@ -40,6 +57,7 @@ public:
         if (nullptr == stack_)
             exit(-1);
     }
+
     Stack(const Stack &obj)
         : stack_size_(obj.stack_size_), top_of_stack_(obj.top_of_stack_) {
         stack_ = new T[stack_size_]();
@@ -49,14 +67,15 @@ public:
             stack_[i] = obj.stack_[i];
         // memcpy(stack_, obj.stack_, sizeof(T) * stack_size_); 复制 stl 类时会出错！
     }
+
     Stack& operator = (const Stack &obj) {
         if (*this == obj)
             return *this;
         if (nullptr != stack_)
             delete[] stack_;
         top_of_stack_ = obj.top_of_stack_;
-        stack_size_ = obj.stack_size_;
-        stack_ = new T[stack_size_]();
+        stack_size_   = obj.stack_size_;
+        stack_        = new T[stack_size_]();
         if (nullptr == stack_)
             exit(-1);
         for (size_t i = 0; i < stack_size_; i++)
@@ -64,14 +83,19 @@ public:
         // memcpy(stack_, obj.stack_, sizeof(T) * stack_size_); // 复制 stl 类时会出错！
         return (*this);
     }
+
     ~Stack() { if (nullptr != stack_) delete[] stack_; }
 
-    bool empty() { return !stack_size_; }
-    size_t top_of_stack() { return top_of_stack_; }
-    void print_value() {
+    bool   empty()        { return !stack_size_;  }  // 判断当前堆栈是否为空
+    size_t top_of_stack() { return top_of_stack_; }  // 返回栈顶索引
+
+    void print_value() {                             // 打印当前栈内所有值
         for (size_t i = 0; i < top_of_stack_; i++)
             cout << stack_[i] << " ";
     }
+
+    //! \brief 压栈操作
+    //! \complexity best case: O(1) worst case: O(n) average case: O(1)
     void Push(const T& data) {
         stack_[top_of_stack_] = data;
         ++top_of_stack_;
@@ -81,12 +105,15 @@ public:
             T *temp_space = new T[stack_size_ * 2 ]();
             for (size_t i = 0; i < stack_size_; i++)
                 temp_space[i] = stack_[i];
-            // memcpy(temp_space, stack_, sizeof(T) * stack_size_); // 复制指定字节数！但是对于 stl 类来说，这样复制会出错！
+            // 复制指定字节数！但是对于 stl 类来说，这样复制会出错！
+            // memcpy(temp_space, stack_, sizeof(T) * stack_size_);
             stack_size_ *= 2; // 不要忘记！
             delete[] stack_;
             stack_ = temp_space;
         }
     }
+
+    // 弹出栈顶元素
     const pair<bool, T> Pop() {
         if (!top_of_stack_)
             return make_pair(false, T());
@@ -95,21 +122,29 @@ public:
     }
 
 private:
-    T *stack_;
+    T*     stack_;
     size_t top_of_stack_; // 栈顶索引
     size_t stack_size_;   // 栈大小
 };
+
 /*-----------------------------Stack 应用-------------------------------------------*/
 
-/*----------------------------------------------------------------------------------
+
+/*-----------------------------栈在表达式求值中的应用----------------------------------*/
+
+/*-----------------------------------------------------------------------------------
 ** 栈在表达式求值中的应用: 34+13*9+44-12/3
 ** #include <map> <string> "stack.hpp" 且 using namespace std;
 **     正确格式： 34+13*9+44-12/3
 **     错误格式：+34+13*9+44-12/3-    34+13**9++44-12/3
-** TODO 开始处有符号的表达式、结尾处有符号的表达式、以及中间出现冗余的符号。如何进行检测。计算出正确的结果！
+** TODO
+**   开始处有符号的表达式、结尾处有符号的表达式、以及中间出现冗余的符号。如何进行检测。计算出正确的结果！
 **---------------------------------------------------------------------------------*/
-//! \brief 将一段字符串按照分割符号列表进行分割成子串！
+namespace internal {
+
+//! \brief 将一段字符串按照分割符号列表，分割成子串！
 //! \param symbol 分割的字符集{可以是加减乘除符号}。可用初始化列表作为输入
+//! \complexity 时间复杂度：O(n) 空间复杂度：O(n)
 vector<string> Split(const string &str, const string symbol) {
     vector<string> substrs;
     string sub;
@@ -127,19 +162,29 @@ vector<string> Split(const string &str, const string symbol) {
     return substrs;
 }
 
+} // namespace internal
+
 //! \brief 栈在表达式求值中的应用。
-//! \note 限制仅仅是加减乘除，而且输入的格式只能是以数字为开始，开始处不能有任何符号。
-//!       结尾也不能出现符号。然后中间必须符合表达式的输入格式
-//!    正确格式： 34+13*9+44-12/3
-//!    错误格式：+34+13*9+44-12/3-    34+13**9++44-12/3
+//! \note
+//!    1）输入限制：仅仅是加减乘除，而且输入的格式只能是以数字为开始，开始处不能有任何符号。
+//!            结尾也不能出现符号。然后中间必须符合表达式的输入格式
+//!    2）输入格式距离
+//!      正确格式： 34+13*9+44-12/3
+//!      错误格式：+34+13*9+44-12/3-    34+13**9++44-12/3
+//!
 //! \param str 保存键盘输入的表达式
 //! \param symbol 表达式包含的运算符号表,比如可以直接输入 {'+','-','*','/'}
-//! \param priority_table symbol 中存储的运算符表的优先级顺序，同等优先级是一个水平。
+//! \param priority_table symbol 存储的运算符表的优先级顺序，同等优先级是一个水平。
 //!                       如减法和加法可以是 0，然后乘法和除法是 1
-//! TODO 开始处有符号的表达式、结尾处有符号的表达式、以及中间出现冗余的符号。如何进行检测。计算出正确的结果！
+//!         符号表定义例子：
+//!         std::map<string, size_t> priority_table = { {"+", 0}, {"-", 0},
+//!                                                     {"*", 1}, {"/", 1} };
+//! \complexity 时间复杂度：O(n)
+//! TODO
+//!   开始处有符号的表达式、结尾处有符号的表达式、以及中间出现冗余的符号。如何进行检测。计算出正确的结果！
 float StackForExpression(const string &str, const string symbol,
                          map<string, size_t> priority_table) { // 如果加上了 const map 则会编译出错
-    vector<string> split_strings = Split(str, symbol);
+    vector<string> split_strings = internal::Split(str, symbol); // O(n)
     Stack<float> operand;    // 操作数
     Stack<string> operators; // 运算符
 
@@ -239,9 +284,12 @@ float StackForExpression(const string &str, const string symbol,
             "Please check out and execute again!" << '\n';
     exit(-1);
 }
+
 /*----------------------------------------------------------------------------------
 ** TODO 栈在括号匹配中的应用: {} [] () <> 与下面的消消乐同理
 **---------------------------------------------------------------------------------*/
+
+/*-----------------------------栈在消消乐中的应用---------------------------------------
 
 /*----------------------------------------------------------------------------------
 ** 栈在消消乐中的应用:给定一个仅包含 0 或 1 的字符串，现在可以对其进行一种操作：当有两个相邻的字符，
@@ -282,7 +330,7 @@ public:
         return *this;
     }
 
-    // 自己需要定义如何才是不相等（满足消消乐条件），这里默认直接用 data_作为数据。消除规则定义
+    // 自己需要定义如何才是不相等（满足消消乐条件），这里默认直接用 data_作为数据。消除规则如下定义
     // 默认元素不相等才算是消除
     // 消消乐条件设定返回 true
     bool operator !=(const Element &obj) {
@@ -294,8 +342,8 @@ private:
     T data_;
 };
 
-//! \brief 相邻两个任意元素消消乐通用实现框架，vec 内部元素是类的话，必须重载了比较运算符号 !=
-//!     且 != 是自己定义消除规则
+//! \brief 相邻两个任意元素消消乐通用实现框架，vec 内部元素是类的话，必须重载了比较运算符号
+//!        != 且 != 是自己定义的消除规则
 template <typename T>
 size_t EliminateAdjacent(const vector<T> &vec) {
     Stack<T> stacks(vec.size()/2);
@@ -317,4 +365,4 @@ size_t EliminateAdjacent(const vector<T> &vec) {
 
 } // namespace stack
 
-#endif
+#endif // GLIB_STACK_HPP_

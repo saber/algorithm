@@ -1,4 +1,5 @@
 /*
+ * CopyRight (c) 2019 gcj
  * File: use_sort.cc
  * Project: algorithm
  * Author: gcj
@@ -12,13 +13,13 @@
 #include <iostream>
 #include <chrono>
 
-
 using namespace std;
 
 size_t Random(int x) {
     return rand()%x;
 }
 
+//! \brief 排序算法简单测试，通过随机生成 10000 个数据，分别测试不同排序算法的执行时间。
 int main(int argc, char const *argv[]) {
     // 随机生成一个大的数列，测试下面排序算法效率
     srand((int)time(0));

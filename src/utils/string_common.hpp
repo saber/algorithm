@@ -1,4 +1,5 @@
 /*
+ * CopyRight (c) 2019 gcj
  * File: string_common.hpp
  * Project: algorithm
  * Author: gcj
@@ -7,6 +8,7 @@
  * License: see the LICENSE.txt file
  * github: https://github.com/saber/algorithm
  */
+
 #ifndef GLIB_STRING_COMMON_HPP_
 #define GLIB_STRING_COMMON_HPP_
 #include <string>
@@ -72,4 +74,4 @@ public:
 
 } // namespace glib
 
-#endif
+#endif // GLIB_STRING_COMMON_HPP_

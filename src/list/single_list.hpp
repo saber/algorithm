@@ -1,4 +1,5 @@
 /*
+ * CopyRight (c) 2019 gcj
  * File: single_list.hpp
  * Project: algorithm
  * Author: gcj
@@ -7,6 +8,7 @@
  * License: see the LICENSE.txt file
  * github: https://github.com/saber/algorithm
  */
+
 #ifndef GLIB_SINGLE_LIST_HPP_
 #define GLIB_SINGLE_LIST_HPP_
 
@@ -14,11 +16,48 @@
 #include <vector>
 #include <assert.h>
 
-//! \brief 实现中包含了链表的插入(头部、尾部)、任意位置插入、按值删除(删除全部值护着删除第一个值)、按指针删除。
-//!   链表的使用例子：LRU(最近最少使用)
-//! TODO 融合两个有序的单链表，单链表排序算法。链表中环的检测、删除链表倒数第 n 个节点、删除序号为 i 的节点
-//! \leetCode: 206、141、21、19、876
-//! \note 本链表只测试基本的内置类型可以通过，没有完全测试 string、vector 是否也能通过。如果失败，麻烦请告知！
+//! \brief 实现了单链表的功能
+//!        基本功能：
+//!           1）插入：包含头部、尾部、任意位置插入。
+//!               对应函数：InsertHead、InsertTail、Insert
+//!           2）删除：删除头部节点、尾部节点、按值删除（删除全部值或者删除第一个值）、按指针删除。
+//!               对应函数：DeleteHead、DeleteTail、Delete(data, flag)、Delete(node*)
+//!           3）查找函数：按数据值查找返回对应节点、按指针查找是否节点在当前链表中。
+//!               对应函数：Find(data)、Find(node*)
+//!           4）移动：交换两个指定节点、指定节点移动到第一个节点处、
+//!               对应函数：Exchange(node1*, node2 *) 、MoveHead(node*)
+//!           5）其他普通函数：返回当期链表被引用数量、链表对应节点数量、链表是否为空、打印链表值、
+//!                    返回头尾指针、返回第一个节点指针、
+//!               对应函数： reference_count、 node_count、empty、print_value、
+//!                   head_ptr、tail_ptr、first_node_ptr、
+//!
+//!        高级功能：
+//!           1）单链表反转：Reserve
+//!           2）求取单链表中间节点：MiddleNode
+//!           3）链表检测环：CheckCircleInSingleList
+//!
+//!        高级应用：
+//!           1）LRU(最近最少使用)缓存淘汰算法单链表实现：LRUBySingleList
+//!           2）判断字符串是否是回文串（假定是单链表存储）：IsPalindromeString
+//!             包含两种方法：递归实现 & 快慢指针法实现
+//!
+//! \Note
+//!     1）不支持移动赋值、移动构造
+//!     2）该单链表的实现利用哨兵——带头结点，简化了处理边界条件。默认构造时，头指针指向头结点
+//!     3）使用 SingleList 提供的函数时，可以通过上面 \brief 中提供的函数名，对应查看下面函数实现处。
+//!        在相应功能的实现处，已经标注了函数的具体使用方法和注意事项。或者直接参照 use_single_list.cc
+//!        文件提供的测试例子，对应测试代码，可以快速明白相应函数接口的使用。
+//!     4）该单链表的实现中，仿照了智能指针的共享功能，也可以用来多个单链表的拷贝构造以及赋值构造。不会造成内存泄露
+//!     5）本链表只测试基本的内置类型可以通过，没有完全测试 string、vector 是否也能通过。如果失败，麻烦请告知！
+//!
+//! \TODO
+//!      1）支持移动赋值、移动构造
+//!      2）链表的排序功能、双链表及其循环链表的基本实现
+//!      3）融合两个有序的单链表，单链表排序算法。—— 参考数组实现那里，实现思路其实与 array.hpp 那里一致
+//!      4）删除链表倒数第 n 个节点、删除序号为 i 的节点
+//!      5）leetCode: 206、141、21、19、876
+
+
 namespace glib {
 
 using namespace std;
@@ -45,15 +84,15 @@ public:
         : node_count_(i), head_(nullptr), tail_(nullptr) {
         assert(values.size() == i); // 初始值与给定节点数量相同
         reference_count_ = new size_t(1);
-        head_ = new Node; // 头指针指向头结点
+        head_ = new Node;           // 头指针指向头结点
         head_->data = T();
-        head_->next = nullptr; // 保证不建立节点也安全
+        head_->next = nullptr;      // 保证不建立节点也安全
         Node *p = head_;
         for (size_t idx = 0; idx != i; idx++) {
             p->next = new Node;
             p->next->data = static_cast<T>(values[idx]);
             p = p->next;
-            p->next = nullptr; // 保证最后一个节点指向空
+            p->next = nullptr;      // 保证最后一个节点指向空
         }
         if (i != 0)
             tail_ = p; // 保留尾指针指向最后一个节点
@@ -72,10 +111,10 @@ public:
     SingleList& operator=(const SingleList &obj) {
         if (this == &obj)
             return *this;
-        (*reference_count_)--; // 左值需要递减计数器
-        if (!(*reference_count_)) {// 需要清理资源
+        (*reference_count_)--;      // 左值需要递减计数器
+        if (!(*reference_count_)) { // 需要清理资源
             //清理资源
-            Node *p = head_->next; // 第一个节点
+            Node *p = head_->next;  // 第一个节点
             Node *temp = p;
             while (p != nullptr) {
                 temp = p;
@@ -117,8 +156,8 @@ public:
     }
 
     size_t reference_count() const { return *reference_count_; } // 返回链表被引用数量
-    int node_count() const { return node_count_; }               // 返回当前链表节点数量
-    bool empty() const { return !node_count_; }                  // 判断链表是否为空
+    int    node_count()      const { return node_count_;       } // 返回当前链表节点数量
+    bool   empty()           const { return !node_count_;      } // 判断链表是否为空
 
     //! \brief 打印链表节点数据
     //! \complexity: O(n)
@@ -257,11 +296,11 @@ public:
         return delete_flag;
     }
 
-    bool DeleteHead() { return Delete(head_->next); }    // 头部删除节点 O(1)
-    bool DeleteTail() { return Delete(tail_); }          // 尾部删除节点 O(n)
-    Node* head_ptr() const { return head_; }             // 返回头指针 O(1)
-    Node* tail_ptr() const { return tail_; }             // 返回尾部指针 O(1)
-    Node* first_node_ptr() const { return head_->next; } // 返回第一个节点指针 O(1)
+    bool  DeleteHead()           { return Delete(head_->next); } // 头部删除节点 O(1)
+    bool  DeleteTail()           { return Delete(tail_);       } // 尾部删除节点 O(n)
+    Node* head_ptr()       const { return head_;               } // 返回头指针 O(1)
+    Node* tail_ptr()       const { return tail_;               } // 返回尾部指针 O(1)
+    Node* first_node_ptr() const { return head_->next;         } // 返回第一个节点指针 O(1)
 
     //! \brief 在链表中寻找指定数据对应的节点
     //! \return vector<Node*> 数据对应的所有节点(vector<Node*>::size() 包含了节点个数)
@@ -305,9 +344,9 @@ public:
 
         // 注意交换(相邻节点交换和不相邻节点交换)过程中尾节点指针
         Node *p = head_;
-        Node *node1_before = nullptr; // 节点1 前一个节点
+        Node *node1_before = nullptr;    // 节点1 前一个节点
         Node *node2_before = nullptr;
-        size_t which_before = 0; // 记录哪个节点在前面
+        size_t which_before = 0;         // 记录哪个节点在前面
         while (p->next != nullptr) {
             if (p->next == node1) {
                 if (!which_before)
@@ -337,7 +376,7 @@ public:
             Node *temp = node2->next;
             node2->next = node1;
             node1->next = temp;
-        } else { // 两个节点至少相隔 1 个节点
+        } else {                         // 两个节点至少相隔 1 个节点
             if (tail_ == node2)
                 tail_ = node1;
             node1_before->next = node2;
@@ -378,13 +417,13 @@ public:
         return find_flag;
     }
 
-    //! \brief 单链表反转。o(n),依次遍历所有节点进行翻转。
+    //! \brief 单链表反转。o(n),依次遍历所有节点进行翻转。至少保证有两个结点才能正常翻转，否则直接返回
     //! TODO 递归实现！！！
     //! \complexity: O(n)
     void Reserve() {
         if (node_count_ <= 1) // 0 或 1 个节点直接返回
             return;
-        std::cout << "node_count_" << node_count_<< '\n';
+        // std::cout << "node_count_" << node_count_<< '\n';
         // 从第二个节点开始依次翻转。最后翻转第一个节点
         Node *prev_node = head_->next;
         Node *curr_node = head_->next->next; // second node
@@ -420,6 +459,7 @@ public:
 
     //! TODO \brief 链表排序(默认：小-->大),如果是类变量，则内部必须重载 ">"
     void Sort(bool sort_flag = true) {}
+
     //! TODO \brief 融合另一个有序链表进行排序，保证链表已经是排序状态
     template <typename Type>
     static void Merge(SingleList<Type> single_list1, SingleList<Type> single_list2) {}
@@ -434,10 +474,29 @@ private:
     size_t *reference_count_;
 }; // end class SingleList
 
+//! \brief 检测单链表中是否有环
+//! \method 快慢指针法，快指针移动两次，满指针移动一次，直到两个指针相遇，则表示有环，否则没有环
+//! \TODO 测试该函数
+template <typename _T>
+bool CheckCircleInSingleList(typename SingleList<_T>::Node* first_node) {
+    if (nullptr == first_node or nullptr == first_node->next) {
+        return false;
+    }
+    decltype(first_node) slow_node = first_node, fast_node = first_node;
+    while (nullptr != fast_node and nullptr != fast_node->next) {
+        slow_node = slow_node->next;
+        fast_node = fast_node->next->next;
+        if (slow_node == fast_node) {
+            return true;
+        }
+    }
+    return false;
+}
+
 /*----------------------------------------------------------------------------------
 **   实用用例 LRU 算法
 **---------------------------------------------------------------------------------*/
-// LRU算法
+//! LRU算法
 //! \use method: 外部定一个单链表，之后调用该函数，指定最大缓存数量，插入指定数据
 //! \example:
 //!     glib::SingleList<int> single_list;
@@ -455,7 +514,7 @@ void LRUBySingleList(SingleList<T> &single_list, const T &data,
     // 不存在该数据，需要在没达到最大节点数量的前提下插入节点。
     // 已经达到最大节点，需要删除尾部节点(最早进来的数据)
     if (vec_nodes.size()) {
-        single_list.MoveHead(vec_nodes[0]); // O(n)
+        single_list.MoveHead(vec_nodes[0]);               // O(n)
     } else if (single_list.node_count() >= max_node_count) {
         // 这个实现效率有点低，应该利用尾部将要删除的节点，然后数据替换成新来的 data
         // single_list.DeleteTail();
@@ -498,7 +557,7 @@ bool PalingromeString(SingleList<char> &string) {
     SingleList<char>::Node *slow_node = fast_node;
     while (nullptr != fast_node && nullptr != fast_node->next) {
         fast_node = fast_node->next->next;
-        if (fast_node != nullptr) {// 保证偶数个节点时，慢节不需要移动一次
+        if (fast_node != nullptr) {        // 保证偶数个节点时，慢节不需要移动一次
             slow_node = slow_node->next;
             node_count++;
         }
@@ -507,13 +566,13 @@ bool PalingromeString(SingleList<char> &string) {
     // 到此时，如果节点个数是奇数那么 fast_node == tail_，偶数： fast_node = nullptr
     SingleList<char>::Node **prev_half_node = nullptr; // 存储前一半节点
     SingleList<char>::Node **last_half_node = nullptr; // 存储后一半节点
-    size_t array_num = 0; // 表示前一半节点和后一半节点需要申请空间的数量
-    if (nullptr == fast_node) { // 偶数个节点
+    size_t array_num = 0;                   // 表示前一半节点和后一半节点需要申请空间的数量
+    if (nullptr == fast_node) {             // 偶数个节点
         prev_half_node = new SingleList<char>::Node*[node_count];
         last_half_node = new SingleList<char>::Node*[node_count];
         array_num = node_count;
-        size_t temp_num = 0; // 临时计数器，存储节点指针用
-        // node_count *= 2; // 总节点数量
+        size_t temp_num = 0;                           // 临时计数器，存储节点指针用
+        // node_count *= 2;                            // 总节点数量
         SingleList<char>::Node *p = string.first_node_ptr();
         while (p != slow_node->next) { // 包含慢节点
             prev_half_node[temp_num] = p;
@@ -521,15 +580,16 @@ bool PalingromeString(SingleList<char> &string) {
             p = p->next;
         }
         temp_num = array_num - 1;
-        while (p != nullptr) { // 倒序存储
+        while (p != nullptr) {              // 倒序存储
             *(last_half_node + temp_num) = p;
             temp_num--;
             p = p->next;
         }
     } else {
-        node_count = 2 * node_count - 1; // 总节点个数
-        if (1 == node_count) // 1 个节点肯定是回文
+        node_count = 2 * node_count - 1;    // 总节点个数
+        if (1 == node_count)                // 1 个节点肯定是回文
             return true;
+
         // 至少 3 个节点
         array_num = (node_count - 1)/2;
         prev_half_node = new SingleList<char>::Node *[array_num];
@@ -563,4 +623,4 @@ bool PalingromeString(SingleList<char> &string) {
 
 } // namespace glib
 
-#endif
+#endif // GLIB_SINGLE_LIST_HPP_
