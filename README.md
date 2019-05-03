@@ -1,22 +1,20 @@
 <div align = "center"> <img src="./pics/logo2.png" width = "400px"></div><br>
 
-> 记录学习《数据结构与算法之美》专栏的实现代码（c++） & 笔记。
+> 记录学习《数据结构与算法之美》专栏的实现代码（C++）& 笔记。
 
 [![](https://img.shields.io/github/issues/saber/algorithm.svg)](https://github.com/saber/algorithm/issues) [![](http://img.shields.io/github/forks/saber/algorithm.svg)](https://github.com/saber/algorithm/network) [![](http://img.shields.io/github/starts/saber/algorithm.svg)](http://img.shields.io/github/saber/algorithm/stargazers) [![](https://travis-ci.org/saber/algorithm.svg?branch=master)](https://travis-ci.org/saber/algorithm) [![](https://img.shields.io/github/release/saber/algorithm.svg)](https://github.com/saber/algorithm/releases)[![jaywcjlove/sb](https://jaywcjlove.github.io/sb/lang/chinese.svg)](README.md)
 
 ---
 
-
+</br></br>
 
 ## :file_folder: src
 
-专栏中讲过的数据结构与算法的 C++ 实现。内部包含了详细的代码注释、复杂度分析以及基本实现思路等等。比如下面就是其中单链表 `.hpp` 注释例子。
+专栏中讲过的数据结构与算法的 C++ 实现。内部包含了详细的代码注释、复杂度分析以及基本实现思路等等。下面图片是其中单链表 `.hpp` 注释例子。代码风格参照 [Google 代码风格 — 笔记](./code-style/)。一份在学习 Google 代码规范时，以代码形式简单整理的笔记。
 
-查看所有代码，**戳这里**​ :point_right: :point_right: [代码](/src)。代码持续更新中 ......
+查看该 Repo 当前包含的数据结构与算法相关的代码，**戳这里**​ :point_right: :point_right: [代码](/src)。代码持续更新中 ......
 
-<img src = "./pics/注释格式.png" height = "800" width = "800px">
-
-</br></br>
+<img src = "./pics/注释格式.png" height = "700" width = "700px"></br></br>
 
 
 
@@ -24,9 +22,15 @@
 
 为方便阅读学习过程中的笔记，笔记已经按照中文排版格式进行排版。排版格式参照 [中文文案排版指北](https://github.com/sparanoid/chinese-copywriting-guidelines)。
 
-阅读笔记，**戳这里**​ :point_right: :point_right: [笔记](notes/)。笔记持续更新中 ......
+阅读笔记，**戳这里**​ :point_right: :point_right: [笔记](notes/)。笔记持续更新中 ...... </br></br>
 
-</br></br>
+
+
+## :open_file_folder: code-style
+
+该文件夹包含了代码规范笔记，这些笔记是 Google 代码规范的浓缩形式，该笔记与上面记录数据结构与算法的笔记不同，是以代码形式呈现的笔记。本 Repo 包含的代码，都是根据这些规范进行书写。当然这份规范笔记还有许多不足，会随着笔者的 C++ 水平的提升而进行改进。
+
+更多的代码风格，请参照 [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html#Header_Files)。中文版本参考 [点击这里](https://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide/)。</br></br>
 
 
 
@@ -34,17 +38,13 @@
 
 学习过程中收集的关于数据结构与算法的资源，以及大佬经验。
 
-**戳这里** :point_right: :point_right: [awesome-resources.md](awesome-resources.md)。资源持续更新中 ......
-
-</br></br>
+**戳这里** :point_right: :point_right: [awesome-resources.md](awesome-resources.md)。资源持续更新中 ...... </br></br>
 
 
 
 ## :file_folder: practice
 
-一些互联网公司在线测试题目。持续更新中 ......
-
-</br></br>
+一些互联网公司在线测试题目。持续更新中 ...... </br></br>
 
 
 
