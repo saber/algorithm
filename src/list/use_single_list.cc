@@ -17,6 +17,10 @@
 using namespace std;
 
 //! \brief 简单测试单链表结构的所有功能
+//! \run
+//!     g++ use_single_list.cc -std=c++11 && ./a.out
+//! \TODO
+//!
 int main(int argc, char **argv) {
     // 简单测试 string 类是否能够通过案例
     cout << "简单测试 string 类是否能够通过案例!" << endl;

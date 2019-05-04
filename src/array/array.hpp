@@ -38,6 +38,9 @@
 //!      1）实现 LRU 缓存淘汰策略——在单链表中已经实现了
 //!      2）实现一个大小固定的有序数组，支持动态增删改操作——实际上考核插入时的数据移动、删除时的垃圾回收策略
 //!      3）leetCode 题目待查找
+//!
+//! \platform
+//!      ubuntu16.04 g++ version 5.4.0
 
 namespace glib {
 using namespace std;
