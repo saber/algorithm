@@ -11,9 +11,9 @@
 * [3）C++代码格式](#3c-代码格式)
 * [4）文件开头标注内容](#4文件开头标注内容)
    * [1 .hpp 文件](#1-hpp-文件)
-   * [2 use_xxx.cc 文件](#2-use_xxxcc-文件)
+   * [2 xxx.test.cc 文件](#2-xxx.testcc -文件)
 * [5）函数注释说明](#5函数注释说明)
-* [6）Pull requests](#6pull-requests)
+* [6）Pull requests](#6pull-requests)</br></br>
 
 
 
@@ -110,7 +110,7 @@
 
   如果在测试时，有一些对比实现，那么如果得到了一些结论，可以在这里写上一些结论。比如我在 `use_sort.cc` 中进行了 6 种排序算法的测试。得到了 6 种不同的运行时间。可以从时间执行的长短中得到某排序算法在某个情况下运行效率最高。
 
-<img src = "./pics/cc文件格式.png" height = "700" width = "700px"></br></br>
+<img src = "./pics/cc文件格式.png" height = "80" width = "700px"></br></br>
 
 
 
@@ -158,7 +158,7 @@
 
   如果该函数使用方法可能会让初学者不太了解，可以自己举个例子。
 
-<img src = "./pics/函数注释说明.png" height = "700" width = "700px"></br></br>
+<img src = "./pics/函数注释说明.png" height = "200" width = "700px"></br></br>
 
 
 

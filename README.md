@@ -36,7 +36,7 @@
 
 更多的代码风格，请参照 [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html)。中文版本 [点击这里](https://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide/)。
 
-**代码规范持续更新中 ...... **</br></br>
+**代码规范持续更新中 ......** </br></br>
 
 
 
