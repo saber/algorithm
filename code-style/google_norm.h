@@ -1,10 +1,10 @@
 /*
  * CopyRight (c) 2019 gcj
- * File: google_norm.h
+ * File: queue.hpp
  * Project: algorithm
  * Author: gcj
- * Date: 2019/5/3
- * Description: google code style
+ * Date: 2019/4/11
+ * Description: queue simple implementation
  * License: see the LICENSE.txt file
  * github: https://github.com/saber/algorithm
  */
@@ -70,7 +70,7 @@ void GoogleTest(); // 尽量使用这种在命名空间中的函数，不要在�
 // 类型名称的每个单词首字母均大写, 不包含下划线
 using VectorInt = std::vector<int>;
 typedef std::vector<int> VectorInt;
-enum GoogleChoice { kGlogChoic, kGflagsChoic }; // 枚举值，采用常量的命名方式。首字母 k 开头！
+enum GoogleChoice { GlogChoic, GflagsChoic }; // 枚举值，采用常量的命名方式。
 
 // 内部变量命名规则与普通变量命名规则一致，小写加下划线链接，但是不需要结尾加下划线
 // 自己规定为前置下划线 + 小写字母组合：恰好区分 class
@@ -97,9 +97,9 @@ inline void TestInline(int test_num) {
 class GoogleNorm {  // 对应文件名字 google_norm.h google_norm.cc
 public:
     // 属于 static const constexpr 的数据成员要放在 public 后面，剩下其他变量全部是 private
-    constexpr static const char* kConfigurationFileActionName = // k 开头 // 因为是 static 常量
+    constexpr static const char* ConfigurationFileActionName = // k 开头 // 因为是 static 常量
       "intensity_to_color";
-    static const kMemberStaticConst = 3;
+    static const MemberStaticConst = 3;
 
     GoogleNorm() = default;
     // 构造函数一般不注释，切记，读代码的人知道构造/析构函数的功能，需要注明函数对参数做了什么，是否取得指针所有权，析构清理了什么
@@ -126,7 +126,7 @@ public:
     // 属性宏或展开为属性的宏，写在函数声明或定义的最前面。 表示提醒调用者
     MUST_USE_RESULT bool IsOk();
 
-    void get_const(){ return kClassStatic_; } // 单函数内部要留白左右一个空格
+    void get_const(){ return ClassStatic_; } // 单函数内部要留白左右一个空格
 
     void get_section() const { return  section_cout_; } // 取值函数和设值函数要全小写加下划线。最好与实际成员变量对应
 

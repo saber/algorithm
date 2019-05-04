@@ -1,10 +1,10 @@
 /*
  * CopyRight (c) 2019 saber
- * File: google_norm.cc
+ * File: queue.hpp
  * Project: algorithm
  * Author: gcj
- * Date: 2019/5/3
- * Description: google code style
+ * Date: 2019/4/11
+ * Description: queue simple implementation
  * License: see the LICENSE.txt file
  * github: https://github.com/saber/algorithm
  */
@@ -113,8 +113,8 @@ void GoogleTest(输入参数, 输出参数) {  // 函数名字每个单词大写
     // 开头不要加空行
     // 普通变量，小写加下划线
     int price_count_reader;
-    const int kLocalConst = 3;
-    static int LocalStatic = 4;
+    const int local_const = 3;
+    static int local_static = 4;
 
     // 对于代码中巧妙的、晦涩的、有趣的、重要的地方加上注释
     // example: 这是一个 for 循环。用了 ... 技巧。。。

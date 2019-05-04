@@ -4,9 +4,9 @@
 
 本文件夹包含了一些笔记 — 学习整理极客时间付费专栏《数据结构与算法之美》。订阅该专栏，可以 [点击这里](https://time.geekbang.org/column/intro/126)。
 
-笔记中涉及的理论代码，可以查看该 Repo 中 `src` 目录代码，**戳这里** :point_right: :point_right: [代码](notes/)。
+笔记中涉及的理论代码，可以查看该 Repo 中 `src` 目录代码，**戳这里** :point_right: :point_right: [代码](notes/)。</br></br>
 
-</br></br>
+
 
 ### :memo: 注意事项
 
@@ -25,9 +25,9 @@ GitHub 目前无法查看 MarkDown 文件中的 LaTex 数学公式，导致笔�
 根本上解决方案（嫌麻烦）：
 
 - 在线编辑并且生成一张图片链接，然后插入到 `.md` 文件中进行引用。
-- 使用公式编辑器，生成一张图片，在文件中引用。
+- 使用公式编辑器，生成一张图片，在文件中引用。</br></br>
 
-</br></br>
+
 
 ### :page_with_curl: 笔记目录
 

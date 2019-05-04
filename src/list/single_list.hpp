@@ -56,7 +56,9 @@
 //!      3）融合两个有序的单链表，单链表排序算法。—— 参考数组实现那里，实现思路其实与 array.hpp 那里一致
 //!      4）删除链表倒数第 n 个节点、删除序号为 i 的节点
 //!      5）leetCode: 206、141、21、19、876
-
+//!
+//! \platform
+//!      ubuntu16.04 g++ version 5.4.0
 
 namespace glib {
 
@@ -227,10 +229,14 @@ public:
         return make_pair(true, p->next); // make_pair<bool, Node*> 用法错误！
     }
 
-    //! \brief 删除节点---By 值(内部多个节点对应该值时，默认全部删除)
-    //! \param flag: true: 表示仅仅删除第一个值为 data 的节点
-    //!              false: 删除全部值为 data 的节点
+    //! \brief 链表中删除节点---By 值
+    //! \note 链表内部多个节点对应该值时，默认全部删除，可以通过下面的选择进行切换
     //! \complexity: best case: O(1) worst case: O(n) average case: O(n)
+    //! \param data 在链表中按给定值进行查找
+    //! \param flag  true:  表示仅仅删除第一个值为 data 的节点
+    //!              false: 删除全部值为 data 的节点
+    //! \return 如果该链表中含有该值，那么删除对应的节点后返回真。
+    //!         如果链表中没有该值，则表示删除失败，返回假
     bool Delete(const T &data, const bool flag = false) {
         bool return_flag = false;
         if (node_count_ == 0 && head_->next == nullptr && tail_ == nullptr)
@@ -496,15 +502,20 @@ bool CheckCircleInSingleList(typename SingleList<_T>::Node* first_node) {
 /*----------------------------------------------------------------------------------
 **   实用用例 LRU 算法
 **---------------------------------------------------------------------------------*/
-//! LRU算法
-//! \use method: 外部定一个单链表，之后调用该函数，指定最大缓存数量，插入指定数据
-//! \example:
-//!     glib::SingleList<int> single_list;
-//!     glib::LRUBySingleList(single_list, int(data), 12);
+//! \brief 简单实现 LRU 算法
+//! \note 暂无
+//! \complexity: O(n)
 //! \param single_list:将要维护的单链表结构
 //! \param data: LRU 缓存中将要保留的数据
 //! \param max_node_count: 缓存中允许的最大节点数量
-//! \complexity: O(n)
+//! \return void
+//! \method: 当前实现利用了单链表结构。
+//! \description google 搜索 LRU 缓存淘汰策略
+//! \reference 无
+//! \TODO 暂无
+//! \example:
+//!     glib::SingleList<int> single_list;
+//!     glib::LRUBySingleList(single_list, int(data), 12);
 template <typename T>
 void LRUBySingleList(SingleList<T> &single_list, const T &data,
                      size_t max_node_count = 10) {

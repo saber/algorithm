@@ -2,9 +2,9 @@
 
 # awesome-algorithms-resources[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 
-记录一些学习数据结构与算法过程中，搜索到的好用资源。对于一些英文资源可以点击这里 [Awesome Algorithms](https://github.com/tayllan/awesome-algorithms#online-judges)
+记录一些学习数据结构与算法过程中，搜索到的好用资源。对于一些英文资源可以点击这里 [Awesome Algorithms](https://github.com/tayllan/awesome-algorithms)。
 
-**持续更新中 ......**
+**持续更新中 ......**</br></br>
 
 
 
@@ -25,8 +25,7 @@
    * [3）队列](#3队列)
 * [五、算法](#五算法)
    * [1）递归](#1递归)
-   * [2）排序](#2排序)
-
+   * [2）排序](#2排序)</br></br>
 
 
 ## 一、经验（磨刀不误砍柴工）
@@ -42,9 +41,7 @@
     https://www.zhihu.com/question/21318658/answer/26295370)
 - [本人偏向于学习C++，如何全面的学习《算法》（第四版）这本用java写的书？](https://www.zhihu.com/question/30170425)
 - [程序员如何提升算法思维？](https://zhuanlan.zhihu.com/p/54929463)
-- [LeetCode 100 题](https://leetcode.com/problemset/top-100-liked-questions/) — 适合准备校招
-
-
+- [LeetCode 100 题](https://leetcode.com/problemset/top-100-liked-questions/) — 适合准备校招</br></br>
 
 
 
@@ -57,9 +54,7 @@
 - [数据结构与算法之美](https://time.geekbang.org/column/article/39922) — 极客时间专栏，更多好专栏可以点击 [极客时间](https://time.geekbang.org/)
 - [可视化学习数据结构与算法](https://visualgo.net/en) — 包含了各种算法的可视化操作
 - [GeeksforGeeks](https://www.geeksforgeeks.org/) — 英文版一些算法的实现
-- [VisuAlgo](https://visualgo.net/en) — 一个动图显示各种算法原理的网站
-
-
+- [VisuAlgo](https://visualgo.net/en) — 一个动图显示各种算法原理的网站</br></br>
 
 
 
@@ -71,7 +66,7 @@
 
 - [普林斯顿-算法第四版](https://www.coursera.org/lecture/algorithms-part1/analysis-of-algorithms-introduction-xaxyP)
 
-- [算法与数据结构 — b 站](https://www.bilibili.com/video/av41612881/?p=1) — 针对互联网笔试
+- [算法与数据结构 — b 站](https://www.bilibili.com/video/av41612881/?p=1) — 针对互联网笔试</br></br>
 
 
 
@@ -88,7 +83,7 @@
   - 《编程之美》— 微软工程师出品，针对 Google、Facebook 大公司
 - 进阶
   - 《算法第四版 - Algorithms》— 更适合初级进阶，内容不全，没有动态规划，偏重讲解算法
-  - 《算法导论》— 复杂度证明、推倒等数学公式多
+  - 《算法导论》— 复杂度证明、推倒等数学公式多</br></br>
 
 
 
@@ -98,7 +93,7 @@
 
 - [《算法》第4版 导读](https://juejin.im/post/5bebccfe6fb9a049fd0f6590#heading-0)
 
-- [台部落](https://www.twblogs.net/c/5b7a8baa2b7177392c96436d/) — 台湾地区的一个包含算法的博客集，需要用 chrome 自动转化成简体中文
+- [台部落](https://www.twblogs.net/c/5b7a8baa2b7177392c96436d/) — 台湾地区的一个包含算法的博客集，需要用 chrome 自动转化成简体中文</br></br>
 
 
 
@@ -110,7 +105,7 @@
 
 - [xtaci/algorithm ](https://github.com/xtaci/algorithms)
 - [PetarV/Algorithms](https://github.com/PetarV-/Algorithms)
-- [faheel/Algos](https://github.com/faheel/Algos)
+- [faheel/Algos](https://github.com/faheel/Algos)</br></br>
 
 
 
@@ -120,13 +115,13 @@
 
 - [LintCode](https://www.lintcode.com/problem/) — LeetCode 中文网
 - [牛客网](https://www.nowcoder.com/) — 附带各大互联网笔试题
-- [PAT](https://www.patest.cn/practice) — 浙大的一个练习网站
+- [PAT](https://www.patest.cn/practice) — 浙大的一个练习网站</br></br>
 
 
 
 ## 三、复杂度分析
 
-- [十分钟搞定时间复杂度（算法的时间复杂度)](https://www.jianshu.com/p/f4cca5ce055a)
+- [十分钟搞定时间复杂度（算法的时间复杂度)](https://www.jianshu.com/p/f4cca5ce055a)</br></br>
 
 
 
@@ -143,7 +138,7 @@
 
 
 
-### 3）队列
+### 3）队列</br></br>
 
 
 
