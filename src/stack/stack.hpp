@@ -16,6 +16,7 @@
 #include <string>
 #include <vector>
 #include <map>     // 括号匹配时，保存符号对应的优先级
+#include "../utils/string_common.hpp" // 分割 string 字符串为 vector<string>
 
 //! \brief 简单实现一个支持动态扩容的栈，本栈实现是基于动态数组。
 //!        基本功能:
@@ -36,6 +37,9 @@
 //!     2）leetCode: 20, 155, 232, 844, 224, 682, 496
 //!     3）编程模拟一个浏览器的前进、后退功能——类似上面栈在表达式求值中的应用
 //!     4）用链表实现一个链式栈
+//!
+//! \platform
+//!      ubuntu16.04 g++ version 5.4.0
 
 namespace glib {
 using namespace std;
@@ -127,42 +131,17 @@ private:
     size_t stack_size_;   // 栈大小
 };
 
-/*-----------------------------Stack 应用-------------------------------------------*/
-
+// stack 的几个应用
+namespace stack_app {
 
 /*-----------------------------栈在表达式求值中的应用----------------------------------*/
 
 /*-----------------------------------------------------------------------------------
 ** 栈在表达式求值中的应用: 34+13*9+44-12/3
-** #include <map> <string> "stack.hpp" 且 using namespace std;
+** #include <map> <string> "stack.hpp" "../utils/tring_common.hpp"且 using namespace std;
 **     正确格式： 34+13*9+44-12/3
 **     错误格式：+34+13*9+44-12/3-    34+13**9++44-12/3
-** TODO
-**   开始处有符号的表达式、结尾处有符号的表达式、以及中间出现冗余的符号。如何进行检测。计算出正确的结果！
 **---------------------------------------------------------------------------------*/
-namespace internal {
-
-//! \brief 将一段字符串按照分割符号列表，分割成子串！
-//! \param symbol 分割的字符集{可以是加减乘除符号}。可用初始化列表作为输入
-//! \complexity 时间复杂度：O(n) 空间复杂度：O(n)
-vector<string> Split(const string &str, const string symbol) {
-    vector<string> substrs;
-    string sub;
-    for (const auto &ch : str) {
-        if (symbol.find(ch) != string::npos) { // 表示在给定的分隔符号表中
-            if (!sub.empty()) // 防止连续的符号在一块
-                substrs.push_back(sub);
-            substrs.push_back(string(1,ch)); // 保存符号
-            sub.clear(); // 清空 string
-        } else
-            sub += ch;
-    }
-    if (!sub.empty())
-        substrs.push_back(sub);
-    return substrs;
-}
-
-} // namespace internal
 
 //! \brief 栈在表达式求值中的应用。
 //! \note
@@ -172,6 +151,7 @@ vector<string> Split(const string &str, const string symbol) {
 //!      正确格式： 34+13*9+44-12/3
 //!      错误格式：+34+13*9+44-12/3-    34+13**9++44-12/3
 //!
+//! \complexity 时间复杂度：O(n)
 //! \param str 保存键盘输入的表达式
 //! \param symbol 表达式包含的运算符号表,比如可以直接输入 {'+','-','*','/'}
 //! \param priority_table symbol 存储的运算符表的优先级顺序，同等优先级是一个水平。
@@ -179,12 +159,14 @@ vector<string> Split(const string &str, const string symbol) {
 //!         符号表定义例子：
 //!         std::map<string, size_t> priority_table = { {"+", 0}, {"-", 0},
 //!                                                     {"*", 1}, {"/", 1} };
-//! \complexity 时间复杂度：O(n)
-//! TODO
-//!   开始处有符号的表达式、结尾处有符号的表达式、以及中间出现冗余的符号。如何进行检测。计算出正确的结果！
+//! \return 返回表达式值
+//! \TODO
+//!      1）开始处有符号的表达式、结尾处有符号的表达式、以及中间出现冗余的符号。
+//!         如何进行检测。进行提示调用者或者计算出正确的结果！
+//! \example 参考 stack.test.cc 文件中对应测试部分代码。
 float StackForExpression(const string &str, const string symbol,
                          map<string, size_t> priority_table) { // 如果加上了 const map 则会编译出错
-    vector<string> split_strings = internal::Split(str, symbol); // O(n)
+    vector<string> split_strings = utils::Split(str, symbol, true); // O(n)
     Stack<float> operand;    // 操作数
     Stack<string> operators; // 运算符
 
@@ -298,6 +280,8 @@ float StackForExpression(const string &str, const string symbol,
 **---------------------------------------------------------------------------------*/
 //! \note strs 必须包含的仅仅是 01字符串,否则调用出错
 //! \complexity: O(n)
+//! \method 来一个数据看看栈中有没有可以相互消除的，如果能够消除，那么进行下一个字符。
+//!         如果不能消除，则直接保存到栈中。
 size_t EliminateAdjacent(const string &strs) {
     Stack<char> stacks(strs.size()/2);
     for (size_t i = 0; i < strs.size(); i++) {
@@ -352,7 +336,7 @@ size_t EliminateAdjacent(const vector<T> &vec) {
         //     exit(-1);
         auto temp_char = stacks.Pop();
         if (temp_char.first) {
-            if (temp_char.second != vec[i]) // 满足消消乐条件，则直接判断下一个。
+            if (temp_char.second != vec[i]) // 满足消消乐条件，则直接判断下一个。如果更改话，需要在 Element 内部重新定义 !=
                 continue;
             stacks.Push(temp_char.second); // 不消除，则把数据存储回去
             stacks.Push(vec[i]);
@@ -363,6 +347,7 @@ size_t EliminateAdjacent(const vector<T> &vec) {
     return stacks.top_of_stack();
 }
 
-} // namespace stack
+} // namespace stack_app
+} // namespace glib
 
 #endif // GLIB_STACK_HPP_

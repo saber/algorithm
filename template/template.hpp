@@ -9,13 +9,13 @@
  * github: https://github.com/saber/algorithm
  */
 
-#ifndef GLIB_TEMPLATE_HPP_ // 将 TEMPLATE 替换为当前文件的名字
+#ifndef GLIB_TEMPLATE_HPP_      // 将 TEMPLATE 替换为当前文件的名字
 #define GLIB_TEMPLATE_HPP_
 
-#include <iostream>     // 一些标准库
+#include <iostream>             // 一些标准库
 #include <vector>
 #include <assert.h>
-#include "ohter_type.h"        // 你自己定义的
+#include "ohter_type.h"         // 你自己定义的
 
 // 下面对应内容需要根据贡献指导文档 CONTRIBUTION.md 的介绍自行替换。
 // 以及参照代码相应的规范文档 CODING_GUIDELINES.md 调整下面的示例。
@@ -36,9 +36,9 @@
 //!
 //! \TODO
 //!      1）支持移动赋值、移动构造功能
-//!      1）实现 LRU 缓存淘汰策略——在单链表中已经实现了
-//!      2）实现一个大小固定的有序数组，支持动态增删改操作——实际上考核插入时的数据移动、删除时的垃圾回收策略
-//!      3）leetCode 题目待查找
+//!      2）实现 LRU 缓存淘汰策略——在单链表中已经实现了
+//!      3）实现一个大小固定的有序数组，支持动态增删改操作——实际上考核插入时的数据移动、删除时的垃圾回收策略
+//!      4）leetCode 题目待查找
 //!
 //! \platform
 //!      ubuntu16.04 g++ version 5.4.0
@@ -48,50 +48,68 @@
 //! \conclusion
 //!
 
-namespace glib {
-namespace std;
+namespace glib {                       // 为了保证整个项目的一致，这个命名空间不变，仍然使用 glib
+using namespace std;
+...... 其他一些声明
 
-// 定义宏，要全大写加下划线
-#define MY_MACRO_THAT_SCARES;
+#define MY_MACRO_THAT_SCARES;          // 你自己定义宏处，要全大写加下划线（但是最好不要使用宏）
+const int GlibGlobalVariable;          // 如果你想定义命名空间的全局变量，此时该变量作为 glib 命名空间的一个接口，
+                                       // 此时按照函数命名规则，首字母大写
+static int GlibGlobalVariable;         // 当然，最好不要定义一个命名空间内的静态存储期属性变量/常量
 
-// 如果利用了 internal 命名空间，需要加上文件的名字
-namespace template_internal {
+template <typename T>                  // 如果有必要，可以做一些模板类的前置声明
+class Template;
+
+// 简单函数直接 「// + 注释」，或者 「\brief+注释」，
+// 复杂函数可以按照下面 CoreFunction 上面的注释说明
+
+// 该函数的功能
+//! \brief 该函数的功能
+void FuncTo2() {                       // 一个全局非内联函数的写法，供外部调用
+    static int temp_variable;          // 函数内部静态变量，命名规则是小写加下划线，与普通变量命名一致
+}
+
+inline void FuncTo() {                 // 一个全局的内联函数的写法
+
+}
+
+namespace template_internal {          // 如果想定义一些当前文件内部使用的函数
+                                       // 可以使用 internal_文件名，来定义命名空间
+                                       //此时默认规定，当前函数只能用在当前文件中使用
     const static int InternalVariable;
     static int InternalVariable;
 
-    // 定义一些当期文件内部需要使用的函数
+    // 定义一些当前文件内部需要使用的函数
     // 改造后的内联函数
     inline void FuncTodo() {
-        // pass
-        // 调用新的接口
+
     }
 
 } // namespace template_internal
 
-// 如果使用了枚举，那么按照下面的方式
-enum class TemplateEnum {
+enum class TemplateEnum {              // 如果使用了枚举，那么按照这个格式，内部元素是大写，下划线连接
     PRE_ORDER,
     IN_ORDER,
     POST_ORDER
 }；
 
-// 如果使用了结构体，最后没有下划线
-struct UrlTableProperties {
+
+struct UrlTableProperties {            // 如果使用了结构体，最后没有下划线，全部都是小写，下划线连接单词
     const int table_name = 5;
     int table_name;
     static int table_name;
 };
 
-// 核心算法的开发
+// 可以在这里做一下当前类的简单介绍
 template <typename T>
-class Template { // 替换为当前实现算法的名字
+class Template {                       // 核心算法的开发，需要替换为当前实现算法的名字
 public:
-    // 类型的声明
+    // 一系列的类型的声明处
     template <_Scalar>
     using VectorTemplate = std::vector<_Scalar>;
     typedef std::vector<int> VectorInt;
 
-    // 类的构造函数
+    // 类的构造函数各种写法
     Template() : template_const_member_(0), template_member_(2) { cout << "默认构造函数" << endl; }
     explicit Template(int template_member) : template_member_(template_member) {}
     Template(int template_const_member, int template_member)
@@ -118,7 +136,8 @@ public:
         }
         return *this;
     }
-    Template& operator=(Template &&other) {
+
+    Template& operator=(Template &&other) {                      // 可选的移动赋值
         if (&other != this) {
             template_member_       = other.template_member_;
             type_ptr_              = other.type_ptr_;
@@ -135,7 +154,8 @@ public:
     Template(const Template &other) = default;
     Template(const Template &other) = delete;
 
-    ~Template() {
+
+    ~Template() {                       // 析构函数，如果内部有申请内存操作，那么可以按照这种方式释放内存
         // 做一些释放资源的事
         if (nullptr != type_ptr_) {
             delete type_ptr_;
@@ -144,12 +164,13 @@ public:
     }
 
     // 正式的成员函数
-    // 取值、设值、状态函数
+
+    // 取值、设值、状态函数，比较短小的，可以按照如下方式进行书写
     void set_template_member(int template_member) { template_member_ = template_member; }
     int  get_template_member() const              { return template_member_;            }
     bool is_empty() const                         { return is_true;                     }
 
-    // 形式参数的命名规则，以及变量是引用还是拷贝。需要看类型以及需求
+    // 形式参数的命名规则，以及形参变量是引用还是拷贝。需要看是否是内置类型或者根据实际需求来定
     // 形式参数太长要分行
     void FindTemplate(const T &input_member,
                       const string &strings,
@@ -161,7 +182,7 @@ public:
     }
 
 
-    // 假设下面的函数是核心函数需要按照下面的注释。前三个必选，后面可选
+    // 假设下面的函数是算法的核心函数，那么需要按照下面格式书写注释。前三个必选，后面可选
 
     //! \brief 简单描述当前函数的功能
     //! \note 当前函数使用过程中需要的注意事项
@@ -184,25 +205,28 @@ public:
         return flag;
     }
 
-
 public:
-    int TemplateMember; // 作为外部调用的成员变量
+    int TemplateMember;                  // 如果定义了外部可获取的共有成员变量，那么需要与函数命名规则一致，
+                                         // 首字母大写且无下划线连接
     const int TableName = 5;
 
 private:
-    // 可以进行必要的对齐
+    // 私有变量直接是小写单词，单词之间用下划线连接，最后是下划线结尾，
+    // 当然为了美观，可以进行必要的对齐。也可以不对齐，但是自己的风格要一致。建议对齐！
     //constexpr int template_const_member_ = 0;
-    const int template_const_member = 0;
+    const int template_const_member_ = 0;
+    bool      is_ture_               = false;
     int       template_member_;
-    bool      is_ture = false;
     T*        type_ptr_;
 }; // class Template
 
-// 可以写一些应用函数，比如单链表可以有 LRU 算法，那么下面就可以写应用算法
+// 如果你有一些当前算法的应用，可以定义一个「文件名_app」的命名空间
+// 表示外部可以实际来访问。比如单链表可以有 LRU 算法，那么下面就可以写应用算法
 namespace template_app {
 
 //! \brief 单链表应用之 LRU 缓存淘汰算法实现
-......
+......其他一些描述
+template <typename T>
 void LRUBySingleList() {
 
 }

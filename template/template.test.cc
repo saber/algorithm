@@ -15,10 +15,12 @@
 #include <string>
 
 using namespace std;
+const int kGlobalConst = 5; // 如果定义了一个全局常量，那么需要前缀 k 字母
+// constexpr int kGlobalConst = 6;
 
 //! \brief 测试 template 中的核心算法
 //! \run
-//!     g++ use_single_list.cc -std=c++11 && ./a.out
+//!     g++ template.test.cc -std=c++11 && ./a.out
 //! \TODO
 //!     1）xxx
 //!

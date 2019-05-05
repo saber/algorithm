@@ -61,8 +61,8 @@
 //!      ubuntu16.04 g++ version 5.4.0
 
 namespace glib {
-
 using namespace std;
+
 template <typename T = int>
 class SingleList {
 public:
@@ -81,7 +81,9 @@ public:
         head_->next = nullptr;
     }
 
-    //! \brief 将一组相同类型数据存储到链表中，i :节点数量 values: 存储节点值
+    //! \brief 将一组相同类型数据存储到链表中，
+    //! \param i :节点数量
+    //! \param values: 存储节点值
     SingleList(const size_t i, const vector<T> &values)
         : node_count_(i), head_(nullptr), tail_(nullptr) {
         assert(values.size() == i); // 初始值与给定节点数量相同
@@ -173,8 +175,8 @@ public:
     }
 
     //! \brief 在头部插入数据
-    //! \return 返回节点地址
     //! \complexity: O(1)
+    //! \return 返回节点地址
     Node* InsertHead(const T &data) {
         Node *p = head_->next;
         head_->next = new Node;
@@ -309,8 +311,8 @@ public:
     Node* first_node_ptr() const { return head_->next;         } // 返回第一个节点指针 O(1)
 
     //! \brief 在链表中寻找指定数据对应的节点
-    //! \return vector<Node*> 数据对应的所有节点(vector<Node*>::size() 包含了节点个数)
     //! \complexity: O(n)
+    //! \return vector<Node*> 数据对应的所有节点(vector<Node*>::size() 包含了节点个数)
     vector<Node*> Find(const T &data) const {
         vector<Node*> return_nodes;
         Node *p = head_;
@@ -423,9 +425,12 @@ public:
         return find_flag;
     }
 
-    //! \brief 单链表反转。o(n),依次遍历所有节点进行翻转。至少保证有两个结点才能正常翻转，否则直接返回
-    //! TODO 递归实现！！！
+    //! \brief 单链表反转。
+    //! \note 至少保证有两个结点才能正常翻转，否则直接返回
     //! \complexity: O(n)
+    //! \method 依次遍历所有节点进行翻转。
+    //! TODO
+    //!     1）递归实现
     void Reserve() {
         if (node_count_ <= 1) // 0 或 1 个节点直接返回
             return;
@@ -447,9 +452,11 @@ public:
         head_->next = prev_node;
     }
 
-    //! \brief 求解单链表的中间节点(同理 1/3 节点等等)。可以直接用 node_count_/2
-    //!     如果链表中没有 node_count_ 可以用快慢指针法。两种方法都是 O(n/2) 复杂度
+    //! \brief 求解单链表的中间节点(同理 1/3 节点等等)。
+    //! \note 当前实现，可以直接用本类的成员变量 node_count_/2
+    //!       如果链表中没有 node_count_ 可以用快慢指针法。两种方法都是 O(n/2) 复杂度
     //! \complexity: O(n)
+    //! \method 快慢指针法
     Node* MiddleNode() {
         // 快慢指针法实现获取链表中间节点
         Node *fast_node = head_->next;
@@ -463,21 +470,22 @@ public:
         return slow_node;
     }
 
-    //! TODO \brief 链表排序(默认：小-->大),如果是类变量，则内部必须重载 ">"
+    //! \brief 链表排序(默认：小-->大),如果是类变量，则内部必须重载 ">"
+    //! TODO 完成该函数
     void Sort(bool sort_flag = true) {}
 
-    //! TODO \brief 融合另一个有序链表进行排序，保证链表已经是排序状态
+    //! \brief 融合另一个有序链表进行排序，保证链表已经是排序状态
+    //! TODO 完成该函数
     template <typename Type>
     static void Merge(SingleList<Type> single_list1, SingleList<Type> single_list2) {}
 
 private:
-    //! \note:
-    //!  初始状态 head_->next == nullptr, node_count_ == 0, tail_ == nullptr
-
+    //! \note: 初始化状态 head_->next == nullptr, node_count_ == 0, tail_ == nullptr
     Node *head_;            // 头指针，指向头结点
     Node *tail_;            // 尾指针，指向最后一个节点
     size_t node_count_ = 0; // 有效节点数量(不包含头节点)
     size_t *reference_count_;
+
 }; // end class SingleList
 
 //! \brief 检测单链表中是否有环
@@ -499,6 +507,8 @@ bool CheckCircleInSingleList(typename SingleList<_T>::Node* first_node) {
     return false;
 }
 
+// 一些利用单链表的应用程序
+namespace single_list_app {
 /*----------------------------------------------------------------------------------
 **   实用用例 LRU 算法
 **---------------------------------------------------------------------------------*/
@@ -541,9 +551,10 @@ void LRUBySingleList(SingleList<T> &single_list, const T &data,
 **   实用用例 字符串是否是回文，假定用单链表存储了字符串，比如 aba、abba 是回文，正序和倒续是一致的
 ** method: 1、直接用递归方法 O(n) 2、两个字符数组存储前一半正序，后一半倒序存储，之后一一比较 O(n)
 **---------------------------------------------------------------------------------*/
-//! \method: 递归方法：依次比较第一个和最后一个节点
+
 //! \note: 保证输入的链表不为空。且处理完毕后原链表会改变
 //! \complexity: best case:O(1) worst case: O(n^2) average case: O(n)
+//! \method: 递归方法：依次比较第一个和最后一个节点
 bool IsPalindromeString(SingleList<char> &string) {
     if (string.node_count() <=1)
         return true;
@@ -554,10 +565,10 @@ bool IsPalindromeString(SingleList<char> &string) {
     return IsPalindromeString(string);
 }
 
-//! \method: 快慢指针法找到中间节点 ：两个字符数组存储前一半正序，后一半倒序存储，之后一一比较
 //! \note: 保证链表不为空。函数内部实现没有使用尾指针以及已知的节点。默认假设链表就是最简单的单链表
-//! \return: true: 是回文串 false: 不是回文串
 //! \complexity: o(n)
+//! \method: 快慢指针法找到中间节点 ：两个字符数组存储前一半正序，后一半倒序存储，之后一一比较
+//! \return: true: 是回文串 false: 不是回文串
 bool PalingromeString(SingleList<char> &string) {
     if (string.empty())
         return true;
@@ -632,6 +643,7 @@ bool PalingromeString(SingleList<char> &string) {
 
 }
 
+} // namespace single_list_app
 } // namespace glib
 
 #endif // GLIB_SINGLE_LIST_HPP_

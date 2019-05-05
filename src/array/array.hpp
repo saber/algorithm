@@ -45,7 +45,7 @@
 namespace glib {
 using namespace std;
 
-namespace internal {
+namespace array_internal {
 
 //! \brief 比较两个元素的大小
 //! \return 1: 1 > 2
@@ -60,7 +60,6 @@ int Compare(T &element1, T &element2) {
     if (element1 < element2)
         return -1;
 }
-
 } // namespace internal
 
 //! \brief 动态扩容的数组
@@ -101,7 +100,8 @@ public:
     size_t capacity() const {return size_;                       } // 返回数组容量
     void   Sort()           {sort(array_, array_ + offset_ + 1); } // 从小到大排序，最后一个输入的是无效的元素
 
-    //! \brief 从数组后面插入数组元素(数组内至少有一个元素)
+    //! \brief 从数组后面插入数组元素
+    //! \note 数组满了的时候，会进行申请内存，(数组内至少有一个元素)
     //! \complexity best case O(1) worst case O(n) average case O(1)
     void PushBack(const T& element) {
         offset_++;
@@ -119,7 +119,8 @@ public:
         array_[offset_] = element;
     }
 
-    // 必须定义两个(注意数组越界问题)
+    //! \note 必须定义下面两个重载(注意数组越界问题)
+
     // 重载 [] ，可以想数组那样利用下标进行访问
     T& operator[](size_t index) {
         if (index >= size_) {
@@ -146,9 +147,11 @@ private:
 
 
 //! \brief 将两个有序数组合并为一个
-//! \detail 直接比较两个数组的最小值，谁小谁先放在临时数组中。知道所有值都放入到临时数组中
 //! \note 假定两个有序数组都是从小到大排序好的，仅支持基本数据类型
 //! \complexity 时间复杂度：O(n)，空间复杂度：O(n)
+//! \method 直接比较两个数组的最小值，谁小谁先放在临时数组中。知道所有值都放入到临时数组中
+//! \TODO
+//!     1）支持类类型的数组合并比如 std::string
 template <typename T>
 Array<T> Merge(Array<T> &array1, Array<T> &array2) {
     // 为了安全可以先排序
@@ -163,7 +166,7 @@ Array<T> Merge(Array<T> &array1, Array<T> &array2) {
     Array<T> temp(array1.size() + array2.size());
     for (size_t i = 0; i < temp.size(); ++i) {
         if (array_index1 != array1.size() && array_index2 != array2.size()) {
-            if (internal::Compare(array1[array_index1], array2[array_index2]) <= 0)
+            if (array_internal::Compare(array1[array_index1], array2[array_index2]) <= 0)
                 temp[i] = array1[array_index1++];
             else
                 temp[i] = array2[array_index2++];

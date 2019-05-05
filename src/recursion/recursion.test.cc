@@ -1,6 +1,6 @@
 /*
  * CopyRight (c) 2019 gcj
- * File: recursion.cc
+ * File: recursion.test.cc
  * Project: algorithm
  * Author: gcj
  * Date: 2019/4/15
@@ -15,12 +15,15 @@
 
 using namespace std;
 
-//! \brief 对递归用例简单测试
+//! \brief  对递归用例简单测试
+//! \run
+//!     g++ recursion.test.cc -std=c++11 && ./a.out
 int main(int argc, char const *argv[]) {
     cout << "台阶问题求解：" << glib::ClimbStairs(7) << endl;
     cout << "电影院排求解：" << glib::WhichRow(5) << endl;
 
     // 有环情况测试
+    cout << "最终推荐人有环测试" << endl;
     glib::KeyMap<char, char> record_table = { {'A', 'B'},
                                               {'B', 'C'},
                                               {'C', 'D'},

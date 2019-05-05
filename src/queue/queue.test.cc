@@ -1,6 +1,6 @@
 /*
  * CopyRight (c) 2019 gcj
- * File: use_queue.cc
+ * File: queue.test.cc
  * Project: algorithm
  * Author: gcj
  * Date: 2019/4/15
@@ -14,9 +14,11 @@
 #include <exception> // 捕获特定类型异常
 using namespace std;
 
-//! \brief 测试自己实现的队列，包含了循环队列、非循环队列的分别测试
+//! \brief 测试实现的队列，包含了循环队列、非循环队列的分别测试
 //!        分别测试了入队、出队、移动赋值、移动构造、赋值、构造、取出第一个元素、取出末尾元素、改变第一个元素、改变末尾元素
 //!        以及队列改变前后时的状态：有效数据个数、队尾索引及其值、队头索引及其值、队列是否为空、如果为空，取值时会报异常。
+//! \run
+//!     g++ queue.test.cc -std=c++11 && ./a.out
 int main(int argc, char const *argv[]) {
 
 // 测试 针对循环队列

@@ -1,6 +1,6 @@
 /*
  * CopyRight (c) 2019 gcj
- * File: use_stack.cc
+ * File: stack.test.cc
  * Project: algorithm
  * Author: gcj
  * Date: 2019/4/8
@@ -16,6 +16,8 @@
 using namespace std;
 
 //! \brief 简单测试栈的基本功能
+//! \run
+//!     g++ stack.test.cc -std=c++11 && ./a.out
 int main(int argc, char const *argv[]) {
     // 测试堆栈！
     cout << "测试压栈，出栈" << endl;
@@ -27,28 +29,32 @@ int main(int argc, char const *argv[]) {
         cout << stac.Pop().second << " ";
     } // 10 个 abc
     cout << "sizeof(string): " << sizeof(string) << endl;
+    cout << endl;
 
     // 测试 glib::EliminateAdjacent()
     cout << "测试消消乐" << endl;
     string ss("10");
-    cout << glib::EliminateAdjacent(ss) << endl; // 0
+    cout << glib::stack_app::EliminateAdjacent(ss) << endl; // 0
+    cout << endl;
 
     // 测试 Element 元素 使用 EliminateAdjacent()
-    cout << "测试消消乐通用框架" << endl;
-    vector<glib::Element<char>> str;
+    cout << "测试消消乐通用框架，测试 Element 元素 使用 EliminateAdjacent()" << endl;
+    vector<glib::stack_app::Element<char>> str;
     for (size_t i = 0; i < 20; i++) {
-        str.push_back(glib::Element<char>('1'));
-        str.push_back(glib::Element<char>('1'));
+        str.push_back(glib::stack_app::Element<char>('1'));
+        str.push_back(glib::stack_app::Element<char>('1'));
     }
     for (size_t i = 0; i < 2; i++) {
-        str.push_back(glib::Element<char>('0'));
+        str.push_back(glib::stack_app::Element<char>('0'));
     }
-    cout << glib::EliminateAdjacent(str) << endl;
+    cout << glib::stack_app::EliminateAdjacent(str) << endl;
+    cout << endl;
 
     // 测试 vector<char> 使用 glib::EliminateAdjacent()
     cout << "测试 vector<char> 直接进行消消乐 " << endl;
     vector<char> str1=  {'1','1','1','1','1','1','1','1','1','1'};
-    cout << glib::EliminateAdjacent({'1','1','1','1','1','1','1','1','1','1'}) << endl;
+    cout << glib::stack_app::EliminateAdjacent({'1','1','1','1','1','1','1','1','1','1'}) << endl;
+    cout << endl;
 
     // 测试运算符表达式 34+13*9+44-12/3。结果为 191
     // 运行时输入上面表达式
@@ -63,7 +69,7 @@ int main(int argc, char const *argv[]) {
     //or // 优先级表，对应数字越大表示优先级越高！
     std::map<string, size_t> priority_table = { {"+", 0}, {"-", 0},
                                                 {"*", 1}, {"/", 1} };
-    cout << glib::StackForExpression(input, {'+','-','*','/'}, priority_table) << endl;
+    cout << glib::stack_app::StackForExpression(input, {'+','-','*','/'}, priority_table) << endl;
 
     return 0;
 }

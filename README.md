@@ -32,7 +32,7 @@
 
 ## :open_file_folder: code-style
 
-该文件夹包含了代码规范笔记，这些笔记是 Google 代码规范的浓缩形式，该笔记与上面记录数据结构与算法的笔记不同，是以代码形式呈现的笔记。本 Repo 包含的代码，都是根据这些规范进行书写。当然这份规范笔记还有许多不足，会随着笔者的 C++ 水平的提升而进行改进。
+该文件夹包含了代码规范笔记，这些笔记是 Google 代码规范的浓缩形式，该笔记与上面记录数据结构与算法的笔记不同，是以代码形式呈现的笔记。本 Repo 包含的代码，都是根据这些规范进行书写。当然这份规范笔记还有许多不足，会随着笔者的 C++ 水平的提升而进行改进。同时自己也简单整理了一份规范文档，适用于本项目的源码。**戳这里** :point_right: :point_right: [CODING_GUIDELINES.md](CODING_GUIDELINES.md)。这份文档配合 `template` 文件夹内部的两个文件 `template.h` `template.test.cc` 一起查看，效果更佳。
 
 更多的代码风格，请参照 [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html)。中文版本 [点击这里](https://zh-google-styleguide.readthedocs.io/en/latest/google-cpp-styleguide/)。
 
@@ -60,7 +60,7 @@
 
 ## :open_file_folder: template 
 
-一份代码规范的简单模板。是该 Repo 中源文件和头文件遵循的一些简单规则。
+包含了当前项目中，一份源码规范的简单模板。是该 Repo 中源文件和头文件遵循的一些简单规则，并且以代码形式展现出来。除了上面 `code-style` 标题介绍的代码规范笔记。同时自己也简单整理了一份规范文档。**戳这里** :point_right: :point_right: [CODING_GUIDELINES.md](CODING_GUIDELINES.md)。这份文档配合 `template` 文件夹内部的两个文件 `template.h` `template.test.cc` 一起查看，效果更佳。
 
 **持续更新中 ......** </br></br>
 
@@ -70,12 +70,15 @@
 
 ### Repo 总览
 
-```
+```shell
 .
 ├── awesome-resources.md
-├── practice
-│   ├── huawei.cc
-│   └── string_encode.cc
+├── code-style
+│   ├── google_norm.cc
+│   ├── google_norm.h
+│   └── README.md
+├── CODING_GUIDELINES.md
+├── CONTRIBUTION.md
 ├── LICENSE.txt
 ├── notes
 │   ├── pics
@@ -87,22 +90,33 @@
 │   ├── 数组&链表.md
 │   └── 栈.md
 ├── pics
+│   ├── cc文件格式.png
 │   ├── logo2.png
 │   ├── qq.png
+│   ├── 函数注释说明.png
 │   └── 注释格式.png
+├── practice
+│   ├── huawei.cc
+│   └── string_encode.cc
 ├── README.md
-└── src
-    ├── array
-    ├── list
-    ├── queue
+├── src
+│   ├── array
+│   ├── list
+│   ├── queue
+│   ├── README.md
+│   ├── recursion
+│   ├── sort
+│   ├── stack
+│   ├── stl_examples
+│   └── utils
+└── template
+    ├── other_type.h
     ├── README.md
-    ├── recursion
-    ├── sort
-    ├── stack
-    ├── stl_examples
-    └── utils
+    ├── template.hpp
+    ├── template.md
+    └── template.test.cc
 
-13 directories, 16 files
+15 directories, 28 files
 ```
 
 ### QQ 群
@@ -126,22 +140,25 @@
 ##### 数组
 
 - [x] 实现一个支持动态扩容的数组 
-- [ ] 实现一个大小固定的有序数组，支持动态增删改操作 
-
 - [x] 实现两个有序数组合并为一个有序数组
+- [ ] 实现一个大小固定的有序数组，支持动态增删改操作 
 
 ##### 链表
 - [x] 实现单链表，支持增删操作
-
 - [ ] 实现循环链表、双向链表，支持增删操作
-
 - [x] 实现单链表反转
 - [ ] 实现两个有序的链表合并为一个有序链表
-
 - [x] 实现求链表的中间结点
+
+- [x] 链表检测环
+
+- [x] 单链表实现 LRU 缓存淘汰策略
 
 ##### 栈
 - [x] 用数组实现一个顺序栈
+
+- [x] 栈在表达式求值中的应用，及其在消消乐中的应用
+
 - [ ] 用链表实现一个链式栈
 - [ ] 编程模拟实现一个浏览器的前进、后退功能
 
@@ -149,10 +166,13 @@
 - [x] 用数组实现一个顺序队列
 - [ ] 用链表实现一个链式队列
 
-- [x] 实现一个循环队列
+- [x] 数组实现一个循环队列
 
 ##### 递归
 - [x] 编程实现斐波那契数列求值f(n)=f(n-1)+f(n-2)
+
+- [x] 最终推荐人检测环 A-B-C-A
+
 - [ ] 编程实现求阶乘n!
 - [ ] 编程实现一组数据集合的全排列
 
@@ -207,16 +227,16 @@
 
 
 
-### 如何贡献自己的代码&笔记
+### ~~如何贡献自己的代码&笔记~~（暂时不开放贡献，还没有完善好一些东西，后期会开放......）
 
 ---
 
-按照下面的步骤，即可贡献自己的代码&笔记。在此之前，你需要了解贡献规则，**戳这里** :point_right::point_right: [贡献](./CONTRIBUTION.md)。
+~~按照下面的步骤，即可贡献自己的代码&笔记。在此之前，你需要了解贡献规则，**戳这里** :point_right::point_right: [贡献](./CONTRIBUTION.md)。~~
 
-1）**Fork** 当前项目
+~~1）**Fork** 当前项目~~
 
-2）创建一个分支，增加一份「代码 & 笔记」，但是不包含当前项目中已经存在的，你可在上面计划列表中寻找一个未完成的目标。
+~~2）创建一个分支，增加一份「代码 & 笔记」，但是不包含当前项目中已经存在的，你可在上面计划列表中寻找一个未完成的目标。~~
 
-3）最后一步是 **pull request**（确保内容格式符合贡献规则）
+~~3）最后一步是 **pull request**（确保内容格式符合贡献规则）~~
 
  

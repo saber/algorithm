@@ -70,7 +70,7 @@ void GoogleTest(); // 尽量使用这种在命名空间中的函数，不要在�
 // 类型名称的每个单词首字母均大写, 不包含下划线
 using VectorInt = std::vector<int>;
 typedef std::vector<int> VectorInt;
-enum GoogleChoice { GlogChoic, GflagsChoic }; // 枚举值，采用常量的命名方式。
+enum GoogleChoice { GLOG_CHOICE, GFLAGS_CHOICE }; // 枚举值，采用常量的命名方式。
 
 // 内部变量命名规则与普通变量命名规则一致，小写加下划线链接，但是不需要结尾加下划线
 // 自己规定为前置下划线 + 小写字母组合：恰好区分 class
