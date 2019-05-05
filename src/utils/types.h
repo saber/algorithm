@@ -13,11 +13,20 @@
 #define GLIB_TYPES_H_
 #include <unordered_map> // 哈希表
 #include <unordered_set>
-#include <map>      // map
+#include <map>           // map
 #include <set>
-#include <cstddef>  // 定义了 size_t 类型
+#include <cstddef>       // 定义了 size_t 类型
 #include <assert.h>
-#include <memory>   // std::shared_ptr
+#include <memory>        // std::shared_ptr
+
+//! \brief 一些自定义标准库别名
+//!     包含内容：HashMap、HashSet、KeyMap、Set、SharePtr
+//!
+//! \TODO
+//!      1）加入更多的别名
+//!
+//! \platform
+//!      ubuntu16.04 g++ version 5.4.0
 
 namespace glib {
 

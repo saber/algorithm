@@ -190,7 +190,7 @@ public:
         return queue_[tail_-1];
     }
 
-    //! \非循环队列入队实现
+    //! \brief 非循环队列入队实现
     //! \complexity best case：O(1)， worst case：O(n), average case：O(1)
     bool Push(const T &data) {
         if (tail_ == capacity_) {
@@ -241,10 +241,11 @@ private:
     size_t tail_     = 0;       // 指向队列尾部
     size_t capacity_ = 0;       // 队列总容量
     size_t size_     = 0;       // 当前队列使用容量: 没有用这个数来作为队列满的条件！进而可以不浪费一块内存。
+
 }; // class Queue
 
 //! \brief 循环队列——基于数组实现
-//! \Note 在构造函数时，要多加 1，因为循环队列会有浪费一个空间。
+//! \note 在构造函数时，要多加 1，因为循环队列会有浪费一个空间。
 //!       但是对于使用者而言，与上面的非循环队列使用方法是一致的。隐藏了内部转换细节
 template <typename T>
 class QueueCycle {
@@ -387,7 +388,6 @@ public:
         return queue_[tail_-1];
     }
 
-    // 循环队列实现
     // 将数据从队列尾部插入
     // 如果队列已经满了，则返回 false，否则返回 true
     //! \complexity O(1)
@@ -434,6 +434,7 @@ private:
     size_t tail_     = 0;       // 指向队列尾部
     size_t capacity_ = 0;       // 队列总容量
     size_t size_     = 0;       // 当前队列使用容量: 没有用这个数来作为队列满的条件！进而可以不浪费一块内存。
+    
 }; // class QueueCycle
 
 } // namespace glib

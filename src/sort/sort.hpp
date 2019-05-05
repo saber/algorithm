@@ -55,15 +55,19 @@ using namespace std;
 //!          插入排序 > 选择排序 > 冒泡排序。倍数关系依次为 5 倍、2 倍
 //!          在插入排序中，自己的实现方式：二分查找 > 后向比较 > 前向比较。依次相差 50ms、20ms
 //!          在选择排序中，自己实现方式：不稳定选择排序 > 稳定选择排序(类似冒泡)。约为 2 倍的关系
+//!
+//! \platform
+//!      ubuntu16.04 g++ version 5.4.0
+
 
 // 选择某个排序方法
 enum class SortOption {
-    kBubble,
-    kInsertion,
-    kSelection,
-    kMerge,
-    kQuick,
-    kCounting
+    BUBBLE,
+    INSERTION,
+    SELECTION,
+    MERGE,
+    QUICK,
+    COUNTING
 };
 
 // 打印当前数组元素顺序值
@@ -78,10 +82,11 @@ void SortDebug(const vector<_Scalar> &array) {
 class SortDetail {
 
 template <typename _Scalar>
-friend void Sort(vector<_Scalar> &array, const SortOption option = SortOption::kInsertion);
+friend void Sort(vector<_Scalar> &array, const SortOption option = SortOption::INSERTION);
 
-//---------------------------冒泡排序-------------------------------------------------
+//-----------------------------冒泡排序-----------------------------------------------
 
+//! \brief 一个冒泡排序简单实现
 //! \complexity 最好：O(n) 最坏：O(n^2) 平均：O(n^2)
 template <typename _Scalar>
 void Bubble(vector<_Scalar> &array) {
@@ -103,14 +108,13 @@ void Bubble(vector<_Scalar> &array) {
     }
 }
 
+//-----------------------------插入排序-----------------------------------------------
 
-//----------------------------插入排序------------------------------------------------
-
-
-// 插入排序:移动操作总数等于逆序度。不管什么操作，移动次数是不变的
-// 可以分别注释下面的三种遍历方式 1)二分查找方式 2）前向遍历 3）后向遍历 看看不同的效果对应的时间
-// 经过测试 二分查找方式执行时间最短。是因为交换移动次数是固定的，只要比较的次数少一些。时间就会少！
+//! \brief 插入排序简单实现
+//! \note 插入排序:移动操作总数等于逆序度。不管什么操作，移动次数是不变的
+//!       可以分别注释下面的三种遍历方式 1)二分查找方式 2）前向遍历 3）后向遍历 看看不同的效果对应的时间
 //! \complexity 最好：O(n) 最坏：O(n^2) 平均：O(n^2)
+//! \conclusion经过测试 二分查找方式执行时间最短。是因为交换移动次数是固定的，只要比较的次数少一些。时间就会少！
 template <typename _Scalar>
 void Insertion(vector<_Scalar> &array) {
     // cout << "Insertion Sort" << endl;
@@ -178,13 +182,12 @@ void Insertion(vector<_Scalar> &array) {
     }
 }
 
+//-----------------------------选择排序-----------------------------------------------
 
-//----------------------------选择排序------------------------------------------------
-
-
-// 选择排序（稳定版）：从剩下的未排序数组中找到最小值，然后放到已排序序列的后面。
-// 下面的实现方式，本质上与冒泡排序一致。是一个稳定的选择排序
+//! \brief 选择排序算法简单实现
+//! \note 该选择排序是稳定版,下面的实现方式，本质上与冒泡排序一致。是一个稳定的选择排序
 //! \complexity 最好：O(n^2) 最坏：O(n^2) 平均：O(n^2)
+//! \method从剩下的未排序数组中找到最小值，然后放到已排序序列的后面。
 template <typename _Scalar>
 void SelectionStable(vector<_Scalar> &array) {
     assert(array.size() != 0);
@@ -206,8 +209,9 @@ void SelectionStable(vector<_Scalar> &array) {
     }
 }
 
-// 不稳定的选择排序，其时间要比上面的稳定选择排序快。仅仅针对数值内置类型。
+//! \brief 一个不稳定的选择排序
 //! \complexity 最好：O(n) 最坏：O(n^2) 平均：O(n^2)
+//! \conclusion 其时间要比上面的稳定选择排序快。仅仅针对数值内置类型。
 template <typename _Scalar>
 void SelectionUnstable(vector<_Scalar> &array) {
     assert(array.size() != 0);
@@ -227,13 +231,13 @@ void SelectionUnstable(vector<_Scalar> &array) {
     }
 }
 
+//-----------------------------归并排序-----------------------------------------------
 
-//------------------------------归并排序----------------------------------------------
+//! \brief 归并排序(Merge Sort)简单实现。
+//! \conclusion 该算法要比上面的插入排序快了 10 倍左右
 
-
-// 归并排序(Merge Sort)。要比上面的插入排序快了 10 倍左右
-
-//! \brief 将两个有序数组合并为一个有序数组。利用选择排序的思路 + 二分查找方法进行。默认从 2 向 1 插入。
+//! \brief 将两个有序数组合并为一个有序数组。
+//! \method 利用选择排序的思路 + 二分查找方法进行。默认从 2 向 1 插入。
 //! \complexity: O(nlog(n))
 // template <typename _Scalar>
 // vector<_Scalar> Merge(const vector<_Scalar> &ordered_array1, const vector<_Scalar> &ordered_array2) {
@@ -274,9 +278,12 @@ void SelectionUnstable(vector<_Scalar> &array) {
 //     return merge_array;
 // }
 
-// 比较两个有序数组的最低位元素。哪个小就复制哪个元素到 merge_array 中。然后移动到下一个元素在与其比较。
+//! \brief 融合两个有序数组
 //! \note 这种合并的方式要比上面的合并方式快 10 倍。 O(n)。一般实际存储的是指针或者引用，所以下面的
 //!      实现还不理想，存储的是值。
+//! \method 比较两个有序数组的最低位元素。哪个小就复制哪个元素到 merge_array 中。然后移动到下一个元素在与其比较。
+//! \TODO
+//!     1）修改成存储指针/引用的形式，这样就不会进行数据的直接拷贝，节省了时间
 template <typename _Scalar>
 vector<_Scalar> Merge(const vector<_Scalar> &ordered_array1,const vector<_Scalar> &ordered_array2) {
     vector<_Scalar> merge_array(ordered_array1.size() + ordered_array2.size());
@@ -307,7 +314,7 @@ vector<_Scalar> Merge(const vector<_Scalar> &ordered_array1,const vector<_Scalar
     return merge_array;
 }
 
-// 利用引用方式归并排序
+//! \brief 利用引用方式归并排序
 //! \complexity 最好、最坏、平均都是 O(nlog(n))
 template <typename _Scalar>
 void MergeSort(vector<_Scalar> &array) {
@@ -336,14 +343,14 @@ void MergeSort(vector<_Scalar> &array) {
 //     array = MergeSortBase(array);
 // }
 
-
 //-----------------------------快速排序-----------------------------------------------
 
+//! \brief 快速排序的简单实现
 
-// 分区函数
+//! \brief 快排中分区函数实现
+//! \complexity 需要额外的空间，空间复杂度一般是 O(n)
 //! \param temp_start 下次分界点起始
 //! \param temp_end 下次分界终点
-//! \note 需要额外的空间一般是 O(n)
 // template <typename _Scalar>
 // void Partition(typename vector<_Scalar>::iterator begin, typename vector<_Scalar>::iterator end,
 //                typename vector<_Scalar>::iterator &temp_start, typename vector<_Scalar>::iterator &temp_end) {
@@ -385,8 +392,8 @@ void MergeSort(vector<_Scalar> &array) {
 //         *start = *start_right;
 // }
 
-// 此时的分区函数速度最快，是上面分区函数的 10 倍。
 //! \complexity 空间复杂度为 O(1)
+//! \conclusion 此时的分区函数速度最快，是上面分区函数的 10 倍。
 template <typename _Scalar>
 void Partition(typename vector<_Scalar>::iterator begin,
                typename vector<_Scalar>::iterator end,
@@ -413,7 +420,8 @@ void Partition(typename vector<_Scalar>::iterator begin,
     temp_start = temp_end + 1;
 }
 
-// 快速排序递归函数，这里的 end 数据是不使用的
+//! \brief 快速排序递归函数，是快排函数的基函数
+//! \note 这里的 end 数据是不使用的
 template <typename _Scalar>
 void QuickSortBase(typename vector<_Scalar>::iterator begin,
                    typename vector<_Scalar>::iterator end) { // note 这里忘了加 typename 了引起了歧义
@@ -427,6 +435,7 @@ void QuickSortBase(typename vector<_Scalar>::iterator begin,
     QuickSortBase<_Scalar>(temp_start, end);
 }
 
+//! \brief 快速排序函数接口
 //! \complexity 最好：O(nlog(n)) 最坏：O(n^2) 平均：O(nlog(n))
 //! 非稳定排序、原地排序：空间复杂度为 O(1)
 template <typename _Scalar>
@@ -447,9 +456,9 @@ void CountingSort(vector<_Scalar> &array) {
 }
 
 //! \brief 计数排序
-//! \detail 将所有数据分桶
 //! \note 该计数排序仅仅适用于整数，且数据范围小于数据个数的情况！
 //! \complexity 时间复杂度：最好：O(n)，最坏：O(n) 平均：O(n) 空间复杂度：O(n)
+//! \method 将所有数据分桶，每个桶内不需要排序
 template <>
 void CountingSort(vector<int> &array) {
     assert(array.size() > 0);
@@ -509,7 +518,7 @@ void CountingSort(vector<int> &array) {
 }; // class SortDetail
 
 // 上述排序算法/思想简单应用
-class AppDetail {
+class SortAppDetail {
 template <typename _Scalar>
 friend _Scalar FindKthBigElement(vector<_Scalar> array, int kth);
 
@@ -564,7 +573,7 @@ _Scalar QuickFind(typename vector<_Scalar>::iterator begin,
 
 //-----------------------------------------------------------------------------------
 
-}; // class AppDetail
+}; // class SortAppDetail
 
 
 //--------------------------------------外部功能接口--------------------------------------
@@ -573,42 +582,42 @@ _Scalar QuickFind(typename vector<_Scalar>::iterator begin,
 //! \brief 各种排序算法接口
 //! \note 调用是需要给定一个 vector 实例。不能是简单临时构造。
 //! 对于计数排序，保证输入的是整数。如果是小数，那么需要自己转换成整数。如果是字符，可以自己转换成整数。
-//! \param array 输入的数据元素，只支持 vector 容器
 //! \complexity 下面是平均复杂度
 //!             冒泡：O(n^2)       插入: O(n^2)      选择：O(n^2)
 //!             归并：O(nlog(n))   快排：O(nlog(n))  计数：O(n)
+//! \param array 输入的数据元素，只支持 vector 容器
 template <typename _Scalar>
-void Sort(vector<_Scalar> &array, const SortOption option = SortOption::kInsertion) {
+void Sort(vector<_Scalar> &array, const SortOption option = SortOption::INSERTION) {
     SortDetail sort;
     switch (option) {
-        case SortOption::kBubble: {
+        case SortOption::BUBBLE: {
             cout << "Bubble Sort" << endl;
             sort.Bubble(array);
             break;
         }
-        case SortOption::kInsertion: {
+        case SortOption::INSERTION: {
             cout << "Insertion Sort" << endl;
             sort.Insertion(array);
             break;
         }
-        case SortOption::kSelection: {
+        case SortOption::SELECTION: {
             cout << "Selection Sort" << endl;
             // SelectionStable(array); // 稳定版本选择排序
             sort.SelectionUnstable(array); // 不稳定排序算法，对于排序和交换的原始是内置数值类型，
                                               // 此时不稳定的排序要快于稳定的排序。
             break;
         }
-        case SortOption::kMerge: {
+        case SortOption::MERGE: {
             cout << "Merge Sort" << endl;
             sort.MergeSort(array);
             break;
         }
-        case SortOption::kQuick: {
+        case SortOption::QUICK: {
             cout << "Quick Sort" << endl;
             sort.QuickSort(array);
             break;
         }
-        case SortOption::kCounting: { // 仅仅适用于 int 类型
+        case SortOption::COUNTING: { // 仅仅适用于 int 类型
             cout << "Counting Sort" << endl;
             sort.CountingSort(array);
             break;
@@ -619,12 +628,12 @@ void Sort(vector<_Scalar> &array, const SortOption option = SortOption::kInserti
 //! \brief 在无序数组中找到第 K 大元素
 //! \note 对于重复的元素也会算进去。如果想找不包含重复的元素中的第 K 大元素，
 //!       那么需要自己实现把重复的元素剔除掉，然后在调用该函数即可找到第 k 大元素
+//! \complexity 时间复杂度 O(n) 空间复杂度 O(1)
 //! \param array 输入的无序 vector
 //! \return 第 k 大元素对应的值
-//! \complexity 时间复杂度 O(n) 空间复杂度 O(1)
 template <typename _Scalar>
 _Scalar FindKthBigElement(vector<_Scalar> array, int kth) {
-    AppDetail findkth;
+    SortAppDetail findkth;
     return findkth.QuickFind<_Scalar>(array.begin(), array.end(), kth);
 }
 

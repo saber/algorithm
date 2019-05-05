@@ -12,6 +12,11 @@
 #include <iostream>
 #include <algorithm>
 
+//! \brief 简单学习使用 std::sort
+//! \run
+//!     g++ use_sort.cc -std=c++11 && ./a.out
+//! \TODO
+//!     1）增加学习代码
 int main(int argc, char const *argv[]) {
 
     return 0;

@@ -1,13 +1,18 @@
 src/**/*.out
 src/**/*.gch
-src/sort/sort2.hpp
-src/sort/sort1.hpp
+
 practice/**/*.gch
 practice/**/*.out
-practice/others
-template/*.gch
 
 code-style/*.gch
+
+practice/others
+
+template/*.gch
+
+#目前还不完善，待完善后在更新
+CONTRIBUTION.md
+
 others/
 books/
 TODO.md

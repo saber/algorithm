@@ -13,22 +13,25 @@
 #include <iostream>
 #include <string>
 using namespace std;
-
-//! \brief 简单学习使用标准库 std::map 
-//! map 的功能
-//!   1）自动建立Key － value的对应。key 和 value可以是任意你需要的类型。
-//!   2）快速插入Key - Value 记录。--- inset()
-//!   3) 根据key值快速查找记录，查找的复杂度基本是Log(N)，如果有1000个记录，最多查找10次，
-//!      1,000,000个记录，最多查找20次。 --- find()
-//!   4）遍历所有记录。--- for(auto &value: xxx) xxx;
-//!   5）根据Key 修改value记录。TODO
-//!   6）快速删除记录 --- erase() TODO
-
-
 // 通用类型声明
 template <typename _Key, typename _Value>
 using KeyMap = std::map<_Key, _Value>;
 
+//! \brief 简单学习使用标准库 std::map
+//!    map 的功能
+//!     1）自动建立Key － value的对应。key 和 value可以是任意你需要的类型。
+//!     2）快速插入Key - Value 记录。--- inset()
+//!     3) 根据key值快速查找记录，查找的复杂度基本是Log(N)，如果有1000个记录，最多查找10次，
+//!        1,000,000个记录，最多查找20次。 --- find()
+//!     4）遍历所有记录。--- for(auto &value: xxx) xxx;
+//!     5）根据Key 修改value记录。TODO
+//!     6）快速删除记录 --- erase() TODO
+//!
+//! \run
+//!     g++ use_hashmap.cc -std=c++11 && ./a.out
+//! \TODO
+//!     1）完成上面第 5）点
+//!     2）完成上面第 6）点
 int main(int argc, char const *argv[]) {
     KeyMap<int, string> key_map;
     // 1）插入元素

@@ -4,7 +4,7 @@
 
 本文件夹包含了一些笔记 — 学习整理极客时间付费专栏《数据结构与算法之美》。订阅该专栏，可以 [点击这里](https://time.geekbang.org/column/intro/126)。
 
-笔记中涉及的理论代码，可以查看该 Repo 中 `src` 目录代码，**戳这里** :point_right: :point_right: [代码](notes/)。</br></br>
+笔记中涉及的理论代码，可以查看该 Repo 中 `src` 目录代码，**戳这里** :point_right: :point_right: [代码](../src/)。</br></br>
 
 
 

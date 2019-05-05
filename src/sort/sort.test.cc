@@ -1,6 +1,6 @@
 /*
  * CopyRight (c) 2019 gcj
- * File: use_sort.cc
+ * File: sort.test.cc
  * Project: algorithm
  * Author: gcj
  * Date: 2019/4/15
@@ -20,6 +20,9 @@ size_t Random(int x) {
 }
 
 //! \brief 排序算法简单测试，通过随机生成 10000 个数据，分别测试不同排序算法的执行时间。
+//! \run
+//!     g++ sort.test.cc -std=c++11 && ./a.out
+
 int main(int argc, char const *argv[]) {
     // 随机生成一个大的数列，测试下面排序算法效率
     srand((int)time(0));
@@ -44,7 +47,7 @@ int main(int argc, char const *argv[]) {
     // 冒泡排序测试
     // std::vector<int> vec_bubble = {6, 5, 4, 3, 2, 1};
     auto start_bubble = chrono::system_clock::now();
-    glib::Sort(vec_bubble, glib::SortOption::kBubble);
+    glib::Sort(vec_bubble, glib::SortOption::BUBBLE);
     auto end_bubble = chrono::system_clock::now();
     chrono::duration<double> elaspsed_seconds_bubble = end_bubble - start_bubble;
     cout << " bubble elaspsed_seconds: " << elaspsed_seconds_bubble.count() << endl;
@@ -57,7 +60,7 @@ int main(int argc, char const *argv[]) {
     // std::vector<int> vec_insert = {6, 6, 6, 6, 6, 5}; // 5,5,7,8,5
     // std::vector<int> vec_insert = {5, 5, 7, 8, 5, 1}; // 5,5,7,8,5
     auto start_insert = chrono::system_clock::now();
-    glib::Sort(vec_insert, glib::SortOption::kInsertion);
+    glib::Sort(vec_insert, glib::SortOption::INSERTION);
     auto end_insert = chrono::system_clock::now();
     chrono::duration<double> elaspsed_seconds = end_insert - start_insert;
     cout << " insert elaspsed_seconds: " << elaspsed_seconds.count() << endl;
@@ -70,7 +73,7 @@ int main(int argc, char const *argv[]) {
     // vector<int> vec_selection = {6, 5, 4, 3, 2, 1}; // 简单测试
     // vector<int> vec_selection = {5, 5, 7, 8, 5, 1};
     auto start_selection = chrono::system_clock::now();
-    glib::Sort(vec_selection, glib::SortOption::kSelection);
+    glib::Sort(vec_selection, glib::SortOption::SELECTION);
     auto end_selection = chrono::system_clock::now();
     chrono::duration<double> elaspsed_seconds_selection = end_selection - start_selection;
     cout << " selection elaspsed_seconds: " << elaspsed_seconds_selection.count() << endl;
@@ -85,7 +88,7 @@ int main(int argc, char const *argv[]) {
     // glib::Sort<int> u;
     // auto vv = u.Merge(vec_merge, vec2); // 测试两个有序数组融合没问题
     auto start_merge = chrono::system_clock::now();
-    glib::Sort(vec_merge, glib::SortOption::kMerge);
+    glib::Sort(vec_merge, glib::SortOption::MERGE);
     auto end_merge = chrono::system_clock::now();
     chrono::duration<double> elaspsed_seconds_merge = end_merge - start_merge;
     cout << " merge elaspsed_seconds: " << elaspsed_seconds_merge.count() << endl;
@@ -97,7 +100,7 @@ int main(int argc, char const *argv[]) {
     // 快速排序测试
     // vector<int> vec_quick = {6, 5, 4, 3, 3, 2, 1, 5};
     auto start_quick = chrono::system_clock::now();
-    glib::Sort(vec_quick, glib::SortOption::kQuick);
+    glib::Sort(vec_quick, glib::SortOption::QUICK);
     auto end_quick = chrono::system_clock::now();
     chrono::duration<double> elaspsed_seconds_quick = end_quick - start_quick;
     cout << " quick elaspsed_seconds: " << elaspsed_seconds_quick.count() << endl;
@@ -110,7 +113,7 @@ int main(int argc, char const *argv[]) {
     // vector<int> vec_counting = {6, 5, 4, 3, 2, 1, 6, 2, 0, 3, -1, -1, -2, -2, -3, -3};
     // vector<int> vec_counting = {1};
     auto start_counting = chrono::system_clock::now();
-    glib::Sort(vec_counting, glib::SortOption::kCounting);
+    glib::Sort(vec_counting, glib::SortOption::COUNTING);
     auto end_counting = chrono::system_clock::now();
     chrono::duration<double> elaspsed_seconds_counting = end_counting - start_counting;
     cout << " counting elaspsed_seconds: " << elaspsed_seconds_counting.count() << endl;
@@ -149,7 +152,7 @@ int main(int argc, char const *argv[]) {
 
     // 验证，提示其他类型数据不能使用计数排序！
     vector<char> vec_char_counting = {'c', 'a'};
-    glib::Sort(vec_char_counting, glib::SortOption::kCounting);
+    glib::Sort(vec_char_counting, glib::SortOption::COUNTING);
 
     return 0;
 }

@@ -38,10 +38,10 @@ namespace glib {
 #endif
 
 //! \description 电影院第几排问题。假设在第 n 排。
-//! \solution 当前排数 = 前一排数 + 1，协成递推公式： f(n) = f(n-1) + 1，确定终止条件为 f(1) = 1
 //! \note 需要解决递归深度问题。两种方式其一：定义一个深度变量。如果深度大于某个值直接退出
 //!       方法二：转换为 for 循环
 //! \complexity 递归实现：O(n) 非递归实现：O(n)
+//! \method 当前排数 = 前一排数 + 1，协成递推公式： f(n) = f(n-1) + 1，确定终止条件为 f(1) = 1
 static size_t CurrentDepth = 0;
 int WhichRow(int row) {
 #ifdef RECURSIVE
@@ -62,11 +62,11 @@ int WhichRow(int row) {
 }
 
 //! \description  n 个台阶问题: 共有 n 个台阶，每步要么走 1 个台阶，要么走 2 个台阶。问走到第 n 个台阶时有多少种情况？
-//! \solution 分析如下：最后一步时可以分解为两个部分。一个部分是还剩一个台阶，另一个部分是还剩两个台阶。
-//!           则可以假设 f(n) = f(n-1) + f(n-2) 其中 f() 函数表示对应有几种情况
-//!           终止条件： f(1) = 1, f(2) = 2
 //! \note 需要用一个全局的散列表记录某个值是否计算成功。减少重复计算。并且对于递归方法限制一下递归深度
 //! \complexity 没有哈希表存储重复元素时，复杂度为指数阶：近似 O(2^(o.5n))，有哈希表存储时，复杂度量级也近似指数。
+//! \method 分析如下：最后一步时可以分解为两个部分。一个部分是还剩一个台阶，另一个部分是还剩两个台阶。
+//!           则可以假设 f(n) = f(n-1) + f(n-2) 其中 f() 函数表示对应有几种情况
+//!           终止条件： f(1) = 1, f(2) = 2
 static glib::HashMap<int, int> StairAndValue; // 保存楼梯以及 f(楼梯)
 static size_t ClimbStairsRecursiveDepth = 0;
 int ClimbStairs(int stairs_num) {
@@ -106,7 +106,7 @@ int ClimbStairs(int stairs_num) {
 }
 
 //! \description 最终推荐人问题。首先要有一个推荐人表，第一栏是当前要查询的 id。第二栏是对应的推荐人
-//! \solution 直接用递归方式，递推公式： f(id) = f(f(id)); f(id) == null 表示终止条件
+//! \method 直接用递归方式，递推公式： f(id) = f(f(id)); f(id) == null 表示终止条件
 //! \param _Type 表示最终推荐人的表达方式，可以是 char、int 等类型
 //! \note 需要解决递归深度问题。两种方式其一：定义一个深度变量。如果深度大于某个值直接退出
 //!       方法二：转换为 for 循环
