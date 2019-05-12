@@ -78,7 +78,6 @@
 │   ├── google_norm.h
 │   └── README.md
 ├── CODING_GUIDELINES.md
-├── CONTRIBUTION.md
 ├── LICENSE.txt
 ├── notes
 │   ├── pics
