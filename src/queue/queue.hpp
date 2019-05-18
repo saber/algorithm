@@ -41,6 +41,8 @@
 //!     4）加锁和锁的粒度的思考--->https://blog.csdn.net/renwotao2009/article/details/52537421
 //!     5）什么是阻塞队列？如何使用阻塞队列来实现生产者-消费者模型? ---> https://juejin.im/post/5aa8dcd1f265da237e096af6
 //!     6）stl 中的队列使用方法可参考: https://blog.csdn.net/wangshihui512/article/details/8930652
+//!
+//!     7）最终的参考阻塞队列可以参考 cartographer 中的 common 中的 blocking_queue.h 实现
 
 namespace glib {
 using namespace std;
@@ -434,7 +436,7 @@ private:
     size_t tail_     = 0;       // 指向队列尾部
     size_t capacity_ = 0;       // 队列总容量
     size_t size_     = 0;       // 当前队列使用容量: 没有用这个数来作为队列满的条件！进而可以不浪费一块内存。
-    
+
 }; // class QueueCycle
 
 } // namespace glib

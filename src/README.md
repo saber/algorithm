@@ -70,6 +70,7 @@ g++ xxx.cc -std=c++11 &&./a.out
 - [链表](list/)
 - [栈](stack/)
 - [队列](queue/)
+- [跳表](skip_list/)
 
 
 
@@ -77,6 +78,7 @@ g++ xxx.cc -std=c++11 &&./a.out
 
 - [递归](recursion/)
 - [排序](sort)
+- [二分](binary_search)
 
 
 
