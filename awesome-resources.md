@@ -156,6 +156,7 @@
 ### 3）哈希表
 
 - [哈希表全解](http://www.nowamagic.net/academy/detail/3008085)—介绍了哈希表的原理及应用例子
+- [HashMap的loadFactor为什么是0.75？](https://www.jianshu.com/p/64f6de3ffcc1)
 - [C++ STL 之哈希表 | unordered_map](https://www.sczyh30.com/posts/C-C/cpp-stl-hashmap/)—可以仿照例子，进行书写哈希表底层实现代码
 - [hashCode 方法及 equals 方法的规范](https://www.sczyh30.com/posts/Java/java-hashcode-equal/)—自己实现的类，如果想用哈希表算法，需要对 hashCode 和 equals 进行重载，原理可以参考这个，对于 c++ 例子，可以参考上面 「C++ STL 之哈希表」
 

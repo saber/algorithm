@@ -1,10 +1,10 @@
 /*
  * CopyRight (c) 2019 gcj
- * File: hash_table.hpp
+ * File: lru_hash.hpp
  * Project: algorithm
  * Author: gcj
  * Date: 2019/5/30
- * Description: hash_table simple implementation
+ * Description: lru by hash simple implementation
  * License: see the LICENSE.txt file
  * github: https://github.com/saber/algorithm
  */
