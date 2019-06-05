@@ -101,15 +101,18 @@ struct UrlTableProperties {            // 如果使用了结构体，最后没�
 };
 
 // 可以在这里做一下当前类的简单介绍
-template <typename T>
+template <typename T, typename _Key, typename _Value, typename _Hash = std::hash<_Key>>
 class Template {                       // 核心算法的开发，需要替换为当前实现算法的名字
-public:
+public: // 类型声明
     // 一系列的类型的声明处
+    using KeyType    = _Key;
+    using MappedType = _Value;
+    using Hasher     = _Hash;
     template <_Scalar>
     using VectorTemplate = std::vector<_Scalar>;
     typedef std::vector<int> VectorInt;
 
-    // 类的构造函数各种写法
+public: // 构造函数相关
     Template() : template_const_member_(0), template_member_(2) { cout << "默认构造函数" << endl; }
     explicit Template(int template_member) : template_member_(template_member) {}
     Template(int template_const_member, int template_member)
@@ -163,6 +166,8 @@ public:
         }
     }
 
+public: // 外部调用核心函数
+
     // 正式的成员函数
 
     // 取值、设值、状态函数，比较短小的，可以按照如下方式进行书写
@@ -204,13 +209,14 @@ public:
         // if (xxx) flag = ture;
         return flag;
     }
+private: // 内部辅助函数 helper function
 
-public:
+public: // 外部调用成员变量
     int TemplateMember;                  // 如果定义了外部可获取的共有成员变量，那么需要与函数命名规则一致，
                                          // 首字母大写且无下划线连接
     const int TableName = 5;
 
-private:
+private: // 内部成员变量
     // 私有变量直接是小写单词，单词之间用下划线连接，最后是下划线结尾，
     // 当然为了美观，可以进行必要的对齐。也可以不对齐，但是自己的风格要一致。建议对齐！
     //constexpr int template_const_member_ = 0;

@@ -24,6 +24,10 @@ using KeyMap = std::unordered_map<_Key, _Value>;
 //! \reference
 //!         1）C++ STL中哈希表 hash_map介绍--->https://blog.csdn.net/ddkxddkx/article/details/6555754#t4
 //!         2）C++ 中标准库 map 和 hash_map 的使用方法--->https://blog.csdn.net/qq_26399665/article/details/52295380
+//!         3）C++ unordered_map--->https://blog.csdn.net/charles1e/article/details/52042066
+//!         4）hashCode 方法及 equals 方法的规范--->https://www.sczyh30.com/posts/Java/java-hashcode-equal/
+//!         5）C++ STL 之哈希表 | unordered_map--->https://www.sczyh30.com/posts/C-C/cpp-stl-hashmap/
+//!         6）
 int main(int argc, char const *argv[]) {
     KeyMap<int, string> hashs;
     hashs[0] = "唐伯虎";

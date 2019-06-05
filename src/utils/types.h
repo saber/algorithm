@@ -11,9 +11,9 @@
 
 #ifndef GLIB_TYPES_H_
 #define GLIB_TYPES_H_
-#include <unordered_map> // 哈希表
+#include <unordered_map> // 无序地图，内部实现是哈希表
 #include <unordered_set>
-#include <map>           // map
+#include <map>           // map 内部实现是红黑树
 #include <set>
 #include <cstddef>       // 定义了 size_t 类型
 #include <assert.h>
