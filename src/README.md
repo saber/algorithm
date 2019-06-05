@@ -71,6 +71,7 @@ g++ xxx.cc -std=c++11 &&./a.out
 - [栈](stack/)
 - [队列](queue/)
 - [跳表](skip_list/)
+- [哈希表](hash_table/)
 
 
 

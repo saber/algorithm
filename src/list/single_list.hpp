@@ -540,7 +540,7 @@ void LRUBySingleList(SingleList<T> &single_list, const T &data,
         // 这个实现效率有点低，应该利用尾部将要删除的节点，然后数据替换成新来的 data
         // single_list.DeleteTail();
         // single_list.InsertHead(data);
-        if (single_list.MoveHead(single_list.tail_ptr())) // 把尾部节点移到第一个节点
+        if (single_list.MoveHead(single_list.tail_ptr())) // 把尾部节点移到第一个节点，然后替换数据
             single_list.first_node_ptr()->data = data;
     } else {
         single_list.InsertHead(data);
