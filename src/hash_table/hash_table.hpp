@@ -14,9 +14,9 @@
 #include <iostream>
 #include <string>
 #include <functional> // 使用 std::hash 函数
-#include <typeinfo> // 用来判断类型
+#include <typeinfo>   // 用来判断类型
 
-//! \brief 利用哈希表和双链表实现 LRU 缓存淘汰算法
+//! \brief 简单实现哈希表——拉链法
 //!     外部调用核心函数：
 //!         1）往哈希表中添加一个数据：Insert()，两种插入方法
 //!         2）从哈希表中删除一个数据：Delete()
