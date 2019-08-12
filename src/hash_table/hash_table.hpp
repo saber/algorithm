@@ -53,7 +53,6 @@
 
 namespace glib {
 
-//! \brief 目前仅仅支持内置基本类型，且底层处理散列冲突用的是拉链法。支持简单的动态扩容
 template <typename _Key, typename _Value, typename _Hash = std::hash<_Key> >
 class HashTable {
 public: // 类型、结构声明
