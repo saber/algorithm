@@ -72,6 +72,7 @@ g++ xxx.cc -std=c++11 &&./a.out
 - [队列](queue/)
 - [跳表](skip_list/)
 - [哈希表](hash_table/)
+- [树](tree/)
 
 
 
@@ -86,4 +87,6 @@ g++ xxx.cc -std=c++11 &&./a.out
 #### 3）工具
 
 - [工具](utils/)
+- [常用宏](internal/)
 - [标准库使用例子](stl_examples/)
+
