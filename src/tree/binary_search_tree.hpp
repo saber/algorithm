@@ -35,6 +35,7 @@
 //!         3）中序遍历（给定节点）：MiddleOrder(node)
 //!         4）后序遍历（给定节点）：BackOrder(node)
 //!         5）获得节点高度（递归）：NodeHeight(node)
+//!
 //! \Note
 //!     1）本类仅仅支持数据类型为：常用的内置数据类型、string 类型。
 //!     2）不支持重复数据！
