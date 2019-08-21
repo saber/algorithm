@@ -30,6 +30,7 @@
 
 ## 一、经验（磨刀不误砍柴工）
 
+- [怎么才算真正掌握了一个数据结构或算法？](https://mp.weixin.qq.com/s/t8z4KQMrTrR3NljtWJm2zg)
 - [我的算法学习之路](http://www.cnblogs.com/figure9/archive/2014/05/05/3708351.html)
 - [左程云：程序员该如何学习算法？](https://www.nowcoder.com/discuss/61529)
 - [如何学习数据结构，知乎回答：](https://www.zhihu.com/question/21318658)
@@ -146,6 +147,15 @@
 - [HashMap的loadFactor为什么是0.75？](https://www.jianshu.com/p/64f6de3ffcc1)
 - [C++ STL 之哈希表 | unordered_map](https://www.sczyh30.com/posts/C-C/cpp-stl-hashmap/)—可以仿照例子，进行书写哈希表底层实现代码
 - [hashCode 方法及 equals 方法的规范](https://www.sczyh30.com/posts/Java/java-hashcode-equal/)—自己实现的类，如果想用哈希表算法，需要对 hashCode 和 equals 进行重载，原理可以参考这个，对于 c++ 例子，可以参考上面 「C++ STL 之哈希表」</br></br>
+
+### 5）树
+
+- [清晰理解红黑树的演变---红黑的含义](https://blog.csdn.net/chen_zhang_yu/article/details/52415077)
+- <<算法四>>
+- [TreeMap红黑树源码详解](https://blog.csdn.net/abcdef314159/article/details/77193888)
+- stl 源码分析红黑树源码部分
+- [学习 《算法导论》第13章 红黑树 总结二](https://blog.csdn.net/wan198809/article/details/48602921)
+- 
 
 
 
