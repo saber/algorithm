@@ -29,13 +29,13 @@
 
 //! \brief 不允许默认构造函数（构造、拷贝、赋值）
 //! \use 建议用在类中只有静态方法时。且只能放在 private 范围内
-#define CERES_DISALLOW_IMPLICIT_CONSTRUCTORS_PRIVATE(TypeName) \
+#define GLIB_DISALLOW_IMPLICIT_CONSTRUCTORS_PRIVATE(TypeName) \
     TypeName(); \
     GLIB_DISALLOW_COPY_AND_ASSIGN_PRIVATE(TypeName)
 
 //! \brief 不允许默认构造函数（构造、拷贝、赋值）
 //! \use 建议用在类中只有静态方法时，且可以放在 public or private 中
-#define CERES_DISALLOW_IMPLICIT_CONSTRUCTORS_PUBLIC(TypeName) \
+#define GLIB_DISALLOW_IMPLICIT_CONSTRUCTORS_PUBLIC(TypeName) \
     TypeName(); \
     GLIB_DISALLOW_COPY_AND_ASSIGN_PUBLIC(TypeName)
 
