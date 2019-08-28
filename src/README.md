@@ -73,6 +73,8 @@ g++ xxx.cc -std=c++11 &&./a.out
 - [跳表](skip_list/)
 - [哈希表](hash_table/)
 - [树](tree/)
+- [堆](heap/)
+- [图](graph/)
 
 
 
