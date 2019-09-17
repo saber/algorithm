@@ -45,7 +45,7 @@ int main(int argc, char const *argv[]) {
     glib::MergeSort(arr, arr + 6);
     for (auto ele: arr)
         cout << ele << " ";
-        
+
     // list queue not usefull
     // list<int> lis{2, 4, 3, 1, 5, 6};
     // int count1 = 0;

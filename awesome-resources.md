@@ -179,6 +179,13 @@
 - [一致性哈希算法与高可用集群代理](https://leileiluoluo.com/posts/consistent-hashing-and-high-available-cluster-proxy.html) — 含有 java 代码
 - [一致性Hash算法背景](https://www.cnblogs.com/haippy/archive/2011/12/10/2282943.html) — 含有链接各种实现代码
 
+### 4）回溯算法
+
+- [小白带你学--回溯算法](https://www.jianshu.com/p/dd3c3f3e84c0)
+- [回溯算法经典框架](https://segmentfault.com/a/1190000018319044?utm_source=tag-newest)
+- [算法之八皇后问题详解暨终极极限挑战](https://blog.csdn.net/u014028063/article/details/82594744)
+- 
+
 
 
 <!--te-->
