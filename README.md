@@ -189,7 +189,7 @@
 
 **Note**：为了保证群内不出现微商等闲杂人员，申请加群时，要备注成 saber/algorithm 等字眼，方便筛选。
 
-<img src="../../../%E6%A1%8C%E9%9D%A2/GitHub/algorithm/pics/qq.png" width="200px"></br></br>
+<img src="./pics/qq.png" width="200px"></br></br>
 
 
 
