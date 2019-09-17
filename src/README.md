@@ -83,6 +83,8 @@ g++ xxx.cc -std=c++11 &&./a.out
 - [递归](recursion/)
 - [排序](sort)
 - [二分](binary_search)
+- [分治](divide_and_conquer)
+- [回溯](backtracking/)
 
 
 
