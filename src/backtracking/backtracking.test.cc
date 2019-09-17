@@ -17,7 +17,7 @@
 #include <chrono> // time
 using namespace std;
 
-//! \brief 简单测试回溯算法（8 皇后问题）
+//! \brief 简单测试回溯算法（8 皇后问题、0-1 背包问题、不同路径问题 III）
 //! \run
 //!     g++ backtracking.test.cc -std=c++11 && ./a.out
 
