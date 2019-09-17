@@ -19,7 +19,7 @@ using namespace std;
 
 //! \brief 简单测试回溯算法（8 皇后问题）
 //! \run
-//!     g++ back_tracking.test.cc -std=c++11 && ./a.out
+//!     g++ backtracking.test.cc -std=c++11 && ./a.out
 
 int main(int argc, char const *argv[]) {
     cout << "8 皇后问题" << endl;
