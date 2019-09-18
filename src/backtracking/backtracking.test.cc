@@ -14,7 +14,7 @@
 #include <vector>
 #include <algorithm>
 #include <utility> // std::pair
-#include <chrono> // time
+#include <chrono>  // time
 using namespace std;
 
 //! \brief 简单测试回溯算法（8 皇后问题、0-1 背包问题、不同路径问题 III）
@@ -55,7 +55,7 @@ int main(int argc, char const *argv[]) {
     int max_capacity2 = 100;
     int max_capacity3 = 300;
 
-    // cout << glib::ZeroOrOneBackpackValue(backpack1, max_capacity1) << endl; // 1063
+    // cout << glib::ZeroOrOneBackpackValue(backpack1, max_capacity1) << endl; // 1063 回溯法运行不出来
 
     cout << glib::ZeroOrOneBackpackValue(backpack2, max_capacity2) << endl; // 133
     cout << glib::ZeroOrOneBackpackValue(backpack3, max_capacity3) << endl; // 388
