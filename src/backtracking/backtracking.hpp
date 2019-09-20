@@ -11,9 +11,11 @@
 #ifndef GLIB_BACKTRACKING_H_
 #define GLIB_BACKTRACKING_H_
 
+#include <unordered_map>
 #include <cstdio>
 #include <vector>
 #include <iostream>
+#include <algorithm> // for_each
 #include <utility>   // std::pair
 #include "assert.h"  // assert
 
@@ -67,7 +69,7 @@ struct BacktrackParameterBase {
           result_num(_result_num) {}
 }; // struct BacktrackParameterBase
 
-//
+// 8 皇后回溯参数
 struct EightQueensParameter: public BacktrackParameterBase {
     typedef std::vector<std::vector<int>> ResultType;
     std::vector<ResultType> result_record; // 记录皇后放置的网格，网格元素为 2 表示皇后的位置
@@ -79,12 +81,17 @@ struct EightQueensParameter: public BacktrackParameterBase {
 // 0-1 背包回溯参数
 template <typename T>
 struct ZeroOrOneBackpackParameter: public BacktrackParameterBase {
+    // 加速 0-1 背包回溯算法（）
+    typedef std::unordered_multimap<int, std::pair<T, T>> StateType;
+    StateType state; // 保存回溯算法已经走过的状态（index 当前背包重量、当前背包价值）
+
     T weight_up_limit;    // 背包重量上限
     T max_weight = -T(1); // 最大背包重量，0-1 背包的简单变种
     T max_value  = -T(1); // 最大背包价值量，0-1 背包常规形式
     std::vector<bool> result_record; // 记录 0-1 背包问题，哪个物品
                                      // 最后装载到背包中，true 表示
                                      // 对应物品需要放在背包中
+
     ZeroOrOneBackpackParameter(T _weight_up_limit, T _max_weight, T _max_value,
         int _solve_space_dim, int _element_dim, int stuff_num, int _result_num = 0)
         : BacktrackParameterBase(_solve_space_dim, _element_dim, _result_num),
@@ -205,12 +212,69 @@ void EightQueensBacktrack(std::vector<std::vector<int>>& grids,
     }
 }
 
-// o-1 helper 最大重量问题
+// o-1 helper
+//! \return true 表示该状态之前已经路过
+//!         false 表示当前状态还没有被记录过
+template <typename T>
+bool IsCurStateExist(ZeroOrOneBackpackParameter<T>& param,
+                     int index_key , T cur_weight) {
+    typedef typename ZeroOrOneBackpackParameter<T>::StateType::value_type ValueType;
+    size_t count = param.state.count(index_key); // 判断当前 index 是否之前已经记录过
+    if (count == 0) {
+        param.state.insert(ValueType(index_key, std::make_pair(cur_weight, T(0))));
+        return false;
+    }
+    bool exist_flag = false;
+    const auto range = param.state.equal_range(index_key);
+    for_each(
+        range.first,
+        range.second,
+        [&exist_flag, &cur_weight](ValueType& x) {
+            if (std::make_pair(cur_weight,T(0)) == x.second)
+                exist_flag = true;
+        }
+    );
+    if (!exist_flag) {
+        param.state.insert(ValueType(index_key, std::make_pair(cur_weight, T(0))));
+        return false;
+    }
+    return true;
+
+}
+
+// 这个状态其实没必要记录了，主要耗费的空间太大
+template <typename T>
+bool IsCurStateExist(ZeroOrOneBackpackParameter<T>& param, int index_key,
+                     T cur_weight, T cur_value ) {
+    typedef typename ZeroOrOneBackpackParameter<T>::StateType::value_type ValueType;
+
+    size_t count = param.state.count(index_key); // 判断当前 index 是否之前已经记录过
+    if (count == 0) {
+        param.state.insert(ValueType(index_key, std::make_pair(cur_weight, cur_value)));
+        return false;
+    }
+    bool exist_flag = false;
+    const auto range = param.state.equal_range(index_key);
+    for_each(
+        range.first,
+        range.second,
+        [&exist_flag, &cur_weight, &cur_value](ValueType& x) {
+            if (std::make_pair(cur_weight, cur_value) == x.second)
+                exist_flag = true;
+        }
+    );
+    if (!exist_flag) {
+        param.state.insert(ValueType(index_key, std::make_pair(cur_weight, cur_value)));
+        return false;
+    }
+    return true;
+}
+
+// 最大重量问题
 template <typename T>
 void ZeroOrOneBacktrack(std::vector<T>& backpack, int index,T cur_weight,
                         std::vector<bool> result_record,
                         ZeroOrOneBackpackParameter<T>& param) {
-
     if (index == param.solve_space_dim || cur_weight == param.weight_up_limit) {
         if (cur_weight > param.max_weight) {
             param.max_weight = cur_weight;
@@ -218,6 +282,9 @@ void ZeroOrOneBacktrack(std::vector<T>& backpack, int index,T cur_weight,
         }
         return;
     }
+    // 当前状态如果存在，那么说明接下来的情况走过，没必要继续走了，这里仅仅适用于最大值问题
+    // 用来加速
+    if (IsCurStateExist(param, index, cur_weight)) return;
 
     // 遍历每个维度的所有可能情况
     for (int i = 0; i < param.element_dim; ++i) {
@@ -244,6 +311,7 @@ void ZeroOrOneBacktrackValue(std::vector<ListOfItems<T, T>>& backpack, int index
         }
         return;
     }
+    if (IsCurStateExist(param, index, cur_weight, cur_value)) return;
 
     // 遍历每个维度的所有可能情况
     for (int i = 0; i < param.element_dim; ++i) {
