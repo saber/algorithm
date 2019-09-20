@@ -241,6 +241,8 @@ bool IsCurStateExist(ZeroOrOneBackpackParameter<T>& param,
     return true;
 
 }
+
+// 这个状态其实没必要记录了，主要耗费的空间太大
 template <typename T>
 bool IsCurStateExist(ZeroOrOneBackpackParameter<T>& param, int index_key,
                      T cur_weight, T cur_value ) {
