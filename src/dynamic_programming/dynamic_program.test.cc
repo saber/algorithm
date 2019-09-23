@@ -67,5 +67,35 @@ int main(int argc, char const *argv[]) {
     vector<int> goods{11, 22, 15, 33, 9, 20, 48, 30, 66, 88};
     cout << glib::DoubleOneOne(goods, 200) << endl; // 200
 
+    // 测试网格最短权重问题
+    cout << "测试网格最短权重为" << endl;
+    std::vector<std::vector<int>> grid = std::vector<std::vector<int>>(4, std::vector<int>(4, 0));
+    grid[0][0] = 1;
+    grid[0][1] = 3;
+    grid[0][2] = 5;
+    grid[0][3] = 9;
+    grid[1][0] = 2;
+    grid[1][1] = 1;
+    grid[1][2] = 3;
+    grid[1][3] = 4;
+    grid[2][0] = 5;
+    grid[2][1] = 2;
+    grid[2][2] = 6;
+    grid[2][3] = 7;
+    grid[3][0] = 6;
+    grid[3][1] = 8;
+    grid[3][2] = 4;
+    grid[3][3] = 3;
+    std::deque<std::pair<int, int>> pos;
+    pos.push_back(std::make_pair(0, 0));
+    glib::MinPathBT(grid, 0, 0, grid[0][0], pos);
+    for (auto ele : glib::Path)
+        cout << ele.first << "," << ele.second << endl;
+    cout << "状态转移表法" << endl;
+    glib::StateTable(grid);
+    cout << endl << "状态转移方程法" << endl;
+    vector<vector<int>> mem = std::vector<std::vector<int>>(4, std::vector<int>(4, 0));
+    cout << glib::StateTransitionEquation(grid, mem, 3, 3) << endl;
+
     return 0;
 }

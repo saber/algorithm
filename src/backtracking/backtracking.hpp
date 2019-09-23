@@ -17,7 +17,8 @@
 #include <iostream>
 #include <algorithm> // for_each
 #include <utility>   // std::pair
-#include "assert.h"  // assert
+#include <cassert>  // assert
+#include <deque>
 
 //! \brief 利用回溯算法解决 0-1 背包（最大价值、最大重量）、8 皇后问题和
 //!        leetcode 上 980 题：不同路径III（链接：https://leetcode-cn.com/problems/unique-paths-iii/）
@@ -501,6 +502,36 @@ int GridPath(std::vector<std::vector<int>>& grids) {
     internal::GridPathBacktrack(grids, 0, cur_pos, grid_param);
 
     return grid_param.result_num;
+}
+
+//! 从左上角 00 网格，到右下角 33 网格的最短路径
+//! \note 这里仅仅示例一个简单的回溯算法，从该回溯算法中
+//!       可以发现，在学习回溯算法时，我们可以求解解空间维度
+//!       也可以按照下面方式不需要求解解空间维度，只要最后
+//!       的索引是我们要求解的 33 位置即可。根据题目的不同，
+//!       需要找到回溯的终止条件
+//! 这道题是动态规划 42 讲中的例子
+int MinDis = std::numeric_limits<int>::max();
+std::deque<std::pair<int, int>> Path;
+void MinPathBT(std::vector<std::vector<int>>& grid, int i, int j,
+               int cur_dis, std::deque<std::pair<int, int>> pos) {
+    if (i == grid.size() - 1 && j == grid[0].size() - 1) {
+        if (cur_dis < MinDis) {
+            MinDis = cur_dis;
+            Path = pos;
+        }
+        return;
+    }
+    if (i < grid.size() - 1) {
+        pos.push_back(std::make_pair(i+1, j));
+        MinPathBT(grid, i + 1, j, cur_dis + grid[i + 1][j], pos);
+        pos.pop_back();
+    }
+    if (j < grid[0].size() - 1) {
+        pos.push_back(std::make_pair(i, j + 1));
+        MinPathBT(grid, i, j + 1, cur_dis + grid[i][j + 1], pos);
+        pos.pop_back();
+    }
 }
 
 

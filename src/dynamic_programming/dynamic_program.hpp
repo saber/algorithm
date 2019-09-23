@@ -14,6 +14,7 @@
 #include <vector>
 #include <iostream>
 #include <algorithm> // std::distance
+#include <deque>
 
 //! \brief 简单实现动态规划典型问题：o-1 背包问题（最大价值、最大重量）
 //!     外部调用函数：
@@ -32,7 +33,7 @@
 //! \TODO
 //!     1）最后一个优惠券问题，应该扩展成有多个不限量满 200 减 50，然后 n 个物品全部买下，
 //!        找到最少的花费方案
-//!     2）课后思考题之杨辉三角形
+//!     2）课后思考题之杨辉三角形，钱币找零问题
 //!
 //! \platform
 //!     ubuntu16.04 g++ version 5.4.0
@@ -209,7 +210,7 @@ int BackpackMaxWeight(const std::vector<int>& goods, int weight_up_limit) {
     // 处理第一个物品是否装载，实际上只要第一个物品不为 0，这里就要把第一个物品装进去
     if (j != 0) record[0] = true;
 
-    // 输出满足条件的其中一种情况
+    // 输出满足条件的其中一种情况（1 对应物品需要装进背包）
     std::cout << "输出满足条件的其中一种情况: " << std::endl;
     for (auto ele : record)
         std::cout << ele << " ";
@@ -358,7 +359,7 @@ int BackpackMaxValue(const std::vector<std::pair<int, int>>& goods,
     // 处理第一个物品
     if (j_weight == goods[0].first) record[0] = true;
 
-    // 输出那些物品需要装
+    // 输出那些物品需要装（1 对应物品需要装进背包）
     std::cout << "找到其中一个满足条件的路径信息" << std::endl;
     for (const auto& ele : record)
         std::cout << ele << " ";
@@ -517,7 +518,7 @@ int DoubleOneOne(const std::vector<int>& goods, int value_down_limit) {
     }
     if (j != 0) record[0] = true; // 表示第一个物品必须要装
 
-    // 输出背包哪个物品需要装
+    // 输出背包哪个物品需要装（1 对应物品需要装进背包）
     int init = 0;
     for (int i = 0; i < record.size(); ++i) {
         if (record[i]) init += goods[i];
@@ -546,6 +547,79 @@ int DoubleOneOne(const std::vector<int>& goods, int value_down_limit) {
     }
 
     return max_value;
+}
+
+//! 从左上角 00 网格，到右下角 33 网格的最短路径
+//! \note 这里仅仅示例一个简单的回溯算法，从该回溯算法中
+//!       可以发现，在学习回溯算法时，我们可以求解解空间维度
+//!       也可以按照下面方式不需要求解解空间维度，只要最后
+//!       的索引是我们要求解的 33 位置即可。根据题目的不同，
+//!       需要找到回溯的终止条件
+int MinDis = std::numeric_limits<int>::max();
+std::deque<std::pair<int, int>> Path;
+void MinPathBT(std::vector<std::vector<int>>& grid, int i, int j,
+               int cur_dis, std::deque<std::pair<int, int>> pos) {
+    if (i == grid.size() - 1 && j == grid[0].size() - 1) {
+        if (cur_dis < MinDis) {
+            MinDis = cur_dis;
+            Path = pos;
+        }
+        return;
+    }
+    if (i < grid.size() - 1) {
+        pos.push_back(std::make_pair(i+1, j));
+        MinPathBT(grid, i + 1, j, cur_dis + grid[i + 1][j], pos);
+        pos.pop_back();
+    }
+    if (j < grid[0].size() - 1) {
+        pos.push_back(std::make_pair(i, j + 1));
+        MinPathBT(grid, i, j + 1, cur_dis + grid[i][j + 1], pos);
+        pos.pop_back();
+    }
+}
+
+// 该状态转移表是根据回溯算法来确定状态表的
+// 但是内部会包含状态转移方程，也就是问题的
+// 本质
+void StateTable(std::vector<std::vector<int>>& grid) {
+    std::vector<std::vector<int>> states = std::vector<std::vector<int>>(4, std::vector<int>(4, 0));
+    // 初始化 0 行 0 列
+    int sum = 0;
+    for (int i = 0; i < grid.size(); ++i) {
+        sum += grid[i][0];
+        states[i][0] = sum;
+    }
+
+    sum = 0;
+    for (int j = 0; j < grid[0].size(); ++j) {
+        sum += grid[0][j];
+        states[0][j] = sum;
+    }
+
+    for (int i = 1; i < grid.size(); ++i) {
+        for (int j = 1; j < grid[0].size(); ++j) {
+            states[i][j] = grid[i][j] + std::min(states[i - 1][j], states[i][j - 1]); // 这里就是状态转移方程
+        }
+    }
+    std::cout << states[3][3] << std::endl;
+}
+
+// 状态转移方程法，直接根据状态转移方程书写递推公式，外加备忘录方法避免出现重复状态
+// 备忘录的方法是同样是根据回溯算法中推导出的状态有关
+int StateTransitionEquation(std::vector<std::vector<int>>& grid,
+                            std::vector<std::vector<int>>& mem, int i, int j) {
+    if (i == 0 && j == 0) return grid[0][0];
+    if (mem[i][j] > 0) return mem[i][j];
+    int left_value = std::numeric_limits<int>::max();
+    if (j - 1 >= 0)
+        left_value = StateTransitionEquation(grid, mem, i, j - 1);
+    int up_value = std::numeric_limits<int>::max();
+    if (i - 1 >= 0)
+        up_value = StateTransitionEquation(grid, mem, i - 1, j);
+
+    int cur_min_dis = grid[i][j] + std::min(left_value, up_value);
+    mem[i][j] = cur_min_dis;
+    return cur_min_dis;
 }
 
 } // namespace glib
